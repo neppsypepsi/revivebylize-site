@@ -1,37 +1,341 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Revive by Lize — Coming Soon</title>
-  <meta name="description" content="Massage therapy in the Bay Area — gentle recovery, full-body renewal, and relaxing facial flow.">
-  <style>
-    html,body{margin:0;height:100%;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#0f0f10;color:#f5f6f7}
-    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:48px}
-    .card{max-width:720px;width:100%;background:#17181a;border:1px solid #26272b;border-radius:16px;padding:32px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
-    h1{margin:0 0 8px;font-size:2rem}
-    p{line-height:1.55;margin:10px 0}
-    .tag{display:inline-block;background:#22242a;border:1px solid #2e3137;padding:6px 10px;border-radius:999px;font-size:.9rem;margin-bottom:14px}
-    .cta{display:inline-block;margin-top:14px;padding:12px 18px;border-radius:10px;background:#3b82f6;color:#fff;text-decoration:none}
-    .grid{display:grid;gap:10px;margin-top:18px}
-    .grid div{background:#141518;border:1px solid #24262b;border-radius:10px;padding:12px}
-    small{opacity:.7}
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Revive by Lize — Massage Therapy</title>
+<style>
+  :root{
+    --bg:#f6f7f6;
+    --ink:#1f2937;
+    --muted:#6b7280;
+    --accent:#5fa08e;    /* sage/teal */
+    --accent-2:#c0d8cf;  /* light sage */
+    --gold:#d4b98c;      /* warm accent for CTAs */
+    --card:#ffffff;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.6;
+  }
+  /* Header */
+  .topbar{
+    position:sticky;
+    top:0; z-index:20;
+    background:rgba(255,255,255,0.85);
+    backdrop-filter:saturate(120%) blur(8px);
+    border-bottom:1px solid #e5e7eb;
+  }
+  .container{
+    max-width:1100px;
+    margin:0 auto;
+    padding:0 20px;
+  }
+  .row{display:flex; align-items:center; justify-content:space-between; gap:16px;}
+  .brand{display:flex; align-items:center; gap:12px; padding:14px 0;}
+  .brand img{height:28px; width:auto}
+  .brand .name{font-weight:700; letter-spacing:.3px}
+  nav a{
+    text-decoration:none; color:var(--ink);
+    margin-left:18px; font-weight:500;
+  }
+  nav a.cta{padding:10px 16px; border-radius:999px; background:var(--accent); color:#fff}
+  nav a.cta:hover{background:#4c8f7d}
+
+  /* Hero */
+  .hero{
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(135deg, var(--accent-2), #f0f5f3);
+  }
+  .hero-inner{
+    display:grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap:32px;
+    padding:72px 20px;
+  }
+  .hero h1{font-size:44px; line-height:1.15; margin:0 0 14px}
+  .hero p{color:var(--muted); font-size:18px; margin:0 0 24px}
+  .hero .cta-wrap{display:flex; gap:12px; flex-wrap:wrap}
+  .btn{
+    display:inline-block; text-decoration:none; font-weight:600;
+    padding:12px 18px; border-radius:999px;
+  }
+  .btn.primary{background:var(--accent); color:#fff}
+  .btn.primary:hover{background:#4c8f7d}
+  .btn.secondary{background:#fff; color:var(--ink); border:1px solid #e5e7eb}
+  .btn.secondary:hover{background:#f9fafb}
+  .hero-visual{
+    border-radius:18px; min-height:280px;
+    background: radial-gradient(1200px 400px at 70% -10%, rgba(95,160,142,.35), transparent),
+                linear-gradient(135deg, #e6f0ec, #ffffff 55%, #f0f5f3);
+    box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  }
+
+  /* Badges */
+  .badges{display:flex; gap:16px; flex-wrap:wrap; margin-top:18px}
+  .badge{
+    background:#fff; border:1px solid #e5e7eb; border-radius:999px;
+    padding:8px 12px; font-size:13px; color:var(--muted);
+  }
+
+  /* Sections */
+  section{padding:56px 20px}
+  h2{font-size:28px; margin:0 0 16px}
+  .sub{color:var(--muted); margin-top:-6px}
+
+  /* Services grid */
+  .services{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap:18px;
+  }
+  @media (max-width: 900px){
+    .hero-inner{grid-template-columns:1fr}
+    .services{grid-template-columns:1fr; }
+  }
+  .card{
+    background:var(--card); border:1px solid #e5e7eb; border-radius:14px; padding:18px;
+    box-shadow:0 6px 16px rgba(0,0,0,.04);
+  }
+  .card h3{margin:0 0 6px; font-size:18px}
+  .price{font-weight:700}
+  .pill{display:inline-block; font-size:12px; padding:6px 10px; border-radius:999px; background:#f3f4f6; color:#4b5563; margin-top:6px}
+  .visual{
+    height:140px; border-radius:12px; margin-bottom:12px;
+    background:linear-gradient(135deg, #e8efe9, #ffffff);
+  }
+
+  /* About */
+  .about{
+    display:grid; grid-template-columns: 1fr 1.1fr; gap:24px;
+  }
+  @media (max-width: 900px){
+    .about{grid-template-columns:1fr}
+  }
+  .about-visual{
+    border-radius:14px; min-height:260px;
+    background: linear-gradient(120deg, #f1f7f4, #ffffff);
+  }
+
+  /* Testimonials */
+  .testi{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap:18px;
+  }
+  @media (max-width: 900px){
+    .testi{grid-template-columns:1fr}
+  }
+  .quote{
+    font-size:15px; color:#374151; margin:6px 0 0;
+  }
+  .stars{color:#f59e0b; font-size:16px; letter-spacing:2px}
+
+  /* Footer */
+  footer{
+    background:#fff; border-top:1px solid #e5e7eb; color:#4b5563;
+  }
+  .footer-grid{
+    display:grid; grid-template-columns: 2fr 1fr 1fr; gap:18px;
+  }
+  @media (max-width: 900px){
+    .footer-grid{grid-template-columns:1fr}
+  }
+  .small{font-size:13px; color:#6b7280}
+  .credits{border-top:1px solid #e5e7eb; margin-top:24px; padding:16px 0; font-size:12px}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <main class="card">
-      <span class="tag">Revive by Lize</span>
-      <h1>Healing hands. Restoring balance.</h1>
-      <p>New massage studio launching soon in the Bay Area. Gentle recovery post‑surgery, full‑body renewal, and soothing facial flow.</p>
-      <div class="grid">
-        <div><strong>Services (preview)</strong><br>• Gentle Recovery Flow • Total Body Renewal • Radiance Facial Flow</div>
-        <div><strong>Mobile / In‑home</strong><br>Available. Transparent travel fee.</div>
+  <header class="topbar">
+    <div class="container row">
+      <div class="brand">
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='60'><rect width='200' height='60' fill='white'/><text x='12' y='38' font-size='22' font-family='Segoe UI, Arial, sans-serif' fill='%235fa08e'>Revive</text><text x='92' y='38' font-size='22' font-family='Segoe UI, Arial, sans-serif' fill='%231f2937'> by Lize</text></svg>" alt="Revive by Lize logo"/>
+        <div class="name">Revive by Lize</div>
       </div>
-      <a class="cta" href="mailto:contact@revivebylize.com">Email: contact@revivebylize.com</a><br>
-      <small>© <span id="y"></span> Revive by Lize</small>
-    </main>
-  </div>
-  <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+      <nav>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a class="cta" href="#booking">Book Now</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <h1>Release stress. Restore balance.</h1>
+        <p>Skilled, personalized massage therapy for hardworking clients across the Bay Area. Simple booking, clear pricing, and a calming experience from start to finish.</p>
+        <div class="cta-wrap">
+          <a class="btn primary" href="#booking">Book an Appointment</a>
+          <a class="btn secondary" href="#services">See Services & Pricing</a>
+        </div>
+        <div class="badges">
+          <div class="badge">Evenings & Weekends • By Appointment</div>
+          <div class="badge">Pay in person (Zelle / Cash)</div>
+          <div class="badge">Mobile / In‑home options</div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-label="Calming spa imagery placeholder"></div>
+    </div>
+  </section>
+
+  <section id="services" class="container">
+    <h2>Services & Pricing</h2>
+    <div class="sub">Competitive Bay Area rates. Transparent, no surprises.</div>
+    <div class="services" style="margin-top:16px;">
+      <div class="card">
+        <div class="visual" aria-hidden="true"></div>
+        <h3>Swedish Relaxation</h3>
+        <div class="price">$70 • 60 min</div>
+        <div class="pill">Gentle • Full-body • Stress relief</div>
+      </div>
+      <div class="card">
+        <div class="visual" aria-hidden="true"></div>
+        <h3>Deep Tissue</h3>
+        <div class="price">$85 • 60 min</div>
+        <div class="pill">Targeted • Muscle tension • Recovery</div>
+      </div>
+      <div class="card">
+        <div class="visual" aria-hidden="true"></div>
+        <h3>Hot Stone Therapy</h3>
+        <div class="price">$95 • 60 min</div>
+        <div class="pill">Warm stones • Circulation • Deep relaxation</div>
+      </div>
+      <div class="card">
+        <div class="visual" aria-hidden="true"></div>
+        <h3>Foot Reflexology</h3>
+        <div class="price">$60 • 60 min</div>
+        <div class="pill">Feet focus • Tension release</div>
+      </div>
+      <div class="card">
+        <div class="visual" aria-hidden="true"></div>
+        <h3>Healthcare Hero Recharge</h3>
+        <div class="price">$85 • 60 min</div>
+        <div class="pill">Neck • Shoulders • Lower back • Feet</div>
+      </div>
+      <div class="card">
+        <div class="visual" aria-hidden="true"></div>
+        <h3>Combination (Custom)</h3>
+        <div class="price">$120 • 90 min</div>
+        <div class="pill">Your mix • Your pressure</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="container">
+    <div class="about card" style="border:none; box-shadow:none; padding:0;">
+      <div class="about-visual" aria-label="About imagery placeholder"></div>
+      <div>
+        <h2>About Lize</h2>
+        <p class="sub">“Revive by Lize” is built for people who give their all — healthcare workers, tradespeople, first responders, parents, and anyone who carries the weight of the day.</p>
+        <p>Lize combines calming Swedish flow with focused deep-tissue techniques to melt stress and free up movement. Sessions are tailored to your body’s needs with clear communication and pressure you control.</p>
+        <ul>
+          <li>Mobile & In‑studio options (Bay Area)</li>
+          <li>Simple booking and reminders</li>
+          <li>Pay in person: Zelle / Cash</li>
+        </ul>
+        <a class="btn primary" href="#booking">Check Availability</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <h2>What clients say</h2>
+    <div class="testi" style="margin-top:14px;">
+      <div class="card">
+        <div class="stars">★★★★★</div>
+        <div class="quote">“I walked in tense from a 12‑hour shift and walked out floating.”</div>
+        <div class="small">— Healthcare client</div>
+      </div>
+      <div class="card">
+        <div class="stars">★★★★★</div>
+        <div class="quote">“Perfect pressure, amazing neck/shoulders work. Rebooked immediately.”</div>
+        <div class="small">— Bay Area client</div>
+      </div>
+      <div class="card">
+        <div class="stars">★★★★★</div>
+        <div class="quote">“Calm, professional, and I loved the easy booking + reminders.”</div>
+        <div class="small">— Returning client</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="booking" class="container">
+    <h2>Book an Appointment</h2>
+    <div class="sub">Placeholders for now — we’ll wire this to Wix Bookings or your preferred calendar later.</div>
+    <div class="card" style="margin-top:14px;">
+      <form onsubmit="alert('This is a visual mock. In production, connect to Wix Bookings or a calendar.'); return false;">
+        <div class="row" style="gap:12px; flex-wrap:wrap">
+          <input required placeholder="Full name" style="flex:1; min-width:220px; padding:12px; border:1px solid #e5e7eb; border-radius:10px"/>
+          <input required placeholder="Email" type="email" style="flex:1; min-width:220px; padding:12px; border:1px solid #e5e7eb; border-radius:10px"/>
+        </div>
+        <div class="row" style="gap:12px; margin-top:12px; flex-wrap:wrap">
+          <select style="flex:1; min-width:220px; padding:12px; border:1px solid #e5e7eb; border-radius:10px">
+            <option>Swedish Relaxation — 60 min ($70)</option>
+            <option>Deep Tissue — 60 min ($85)</option>
+            <option>Hot Stone — 60 min ($95)</option>
+            <option>Foot Reflexology — 60 min ($60)</option>
+            <option>Healthcare Hero Recharge — 60 min ($85)</option>
+            <option>Combination — 90 min ($120)</option>
+          </select>
+          <input placeholder="Preferred date (placeholder)" style="flex:1; min-width:220px; padding:12px; border:1px solid #e5e7eb; border-radius:10px"/>
+        </div>
+        <textarea placeholder="Notes (pressure preference, focus areas…)" style="width:100%; margin-top:12px; padding:12px; border:1px solid #e5e7eb; border-radius:10px; min-height:90px"></textarea>
+        <div style="display:flex; align-items:center; gap:10px; margin-top:12px" class="small">
+          <input type="checkbox" id="mobile" />
+          <label for="mobile">Request mobile / in‑home service</label>
+        </div>
+        <div style="margin-top:14px">
+          <button class="btn primary" type="submit">Request Booking</button>
+          <span class="small" style="margin-left:10px">Pay in person (Zelle or Cash)</span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section id="contact" class="container">
+    <h2>Contact</h2>
+    <div class="card" style="margin-top:14px;">
+      <div class="row" style="align-items:flex-start; gap:16px; flex-wrap:wrap">
+        <div style="flex:2; min-width:260px">
+          <p class="small"><strong>Service area:</strong> Bay Area (mobile & in‑studio options)</p>
+          <p class="small"><strong>Email:</strong> hello@revivebylize.com (placeholder)</p>
+          <p class="small"><strong>Hours:</strong> Evenings & Weekends • By appointment only</p>
+        </div>
+        <div style="flex:3; min-width:260px">
+          <p class="small">Policies (placeholders):</p>
+          <ul class="small">
+            <li>24‑hour reschedule/cancellation appreciated.</li>
+            <li>Please arrive 5–10 minutes early for your first session.</li>
+            <li>Health & safety: If you’re feeling unwell, please reschedule.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid" style="padding:22px 0">
+        <div>
+          <div class="name" style="font-weight:700">Revive by Lize</div>
+          <div class="small">Calming, customized massage therapy for hardworking people across the Bay Area.</div>
+        </div>
+        <div>
+          <div class="small"><strong>Quick links</strong></div>
+          <div class="small"><a href="#services">Services</a> · <a href="#about">About</a> · <a href="#contact">Contact</a></div>
+        </div>
+        <div>
+          <div class="small"><strong>Payments</strong></div>
+          <div class="small">Zelle • Cash (in person)</div>
+        </div>
+      </div>
+      <div class="credits">© <span id="year"></span> Revive by Lize • Mock for design review</div>
+    </div>
+  </footer>
+<script>document.getElementById('year').textContent=new Date().getFullYear()</script>
 </body>
 </html>
