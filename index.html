@@ -6,7 +6,7 @@
 <title>Revive by Lize — Massage Therapy</title>
 <meta name="description" content="Massage therapy for healing, renewal, and radiant relaxation in the Bay Area. Gentle Recovery Flow, Total Body Renewal, Radiance Facial Flow.">
 <style>
-  :root{--bg:#f6f7f6;--ink:#1f2937;--muted:#6b7280;--accent:#5fa08e;--accent-2:#cfe3dc;--card:#fff;--hdr:72px;--ok:#16a34a;--no:#ef4444}
+  :root{--bg:#f6f7f6;--ink:#1f2937;--muted:#6b7280;--accent:#5fa08e;--accent-2:#cfe3dc;--card:#fff;--hdr:72px}
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial;color:var(--ink);background:var(--bg);line-height:1.6}
@@ -51,20 +51,9 @@
   .about-visual{border-radius:14px;min-height:280px;overflow:hidden;background:#f1f5f9}
   .about-visual img{width:100%;height:100%;object-fit:cover;display:block}
 
-  /* Booking calendar */
-  .calendar{display:grid;gap:12px}
-  .cal-head{display:flex;justify-content:space-between;align-items:center}
-  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
-  .dow{font-size:12px;color:#6b7280;text-align:center}
-  .day{padding:10px;border-radius:10px;text-align:center;border:1px solid #e5e7eb;background:#fff;cursor:pointer;user-select:none}
-  .day.muted{color:#9ca3af;background:#f9fafb}
-  .day.ok{border-color:#86efac;background:#ecfdf5}
-  .day.no{border-color:#fecaca;background:#fff1f2}
-  .day.selected{outline:3px solid #5fa08e}
-  .cal-legend{display:flex;gap:10px;align-items:center;font-size:12px;color:#6b7280}
-  .chip{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px}
-  .chip.ok{background:#22c55e}
-  .chip.no{background:#ef4444}
+  /* Booking embed */
+  .calendar-embed iframe{width:100%;height:650px;border:0}
+  @media (max-width:900px){.calendar-embed iframe{height:520px}}
 
   /* Footer */
   footer{background:#fff;border-top:1px solid #e5e7eb;color:#4b5563;margin-top:40px}
@@ -119,7 +108,7 @@
       <div class="visual"><img src="TBR.png" alt="Total Body Renewal"></div>
       <h3>Total Body Renewal</h3>
       <div class="price">$70 • 60 min</div>
-      <p>A full‑body, calming treatment to help you feel lighter, more energized, and balanced. Gentle pressure encourages healthy fluid movement, reduces puffiness, and deeply relaxes.</p>
+      <p>A full-body, calming treatment to help you feel lighter, more energized, and balanced. Gentle pressure encourages healthy fluid movement, reduces puffiness, and deeply relaxes.</p>
     </div>
 
     <div class="card">
@@ -145,40 +134,27 @@
   </div>
 </section>
 
-<!-- Booking: calendar + time picker that emails the request -->
 <section id="booking" class="container">
   <h2>Book an Appointment</h2>
-  <div class="sub">Select a green date, choose a time, pick a service, then click “Request Booking.”</div>
+  <div class="sub">This calendar shows live availability. Busy times are blocked. To request a slot, email us below.</div>
   <div class="card" style="margin-top:14px">
-    <div class="calendar" id="calendar"></div>
-
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px">
-      <label>Time
-        <select id="time" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px">
-          <option value="">Select a time</option>
-        </select>
-      </label>
-      <label>Service
-        <select id="service" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px">
-          <option value="Gentle Recovery Flow (60 min)">$75 — Gentle Recovery Flow (60 min)</option>
-          <option value="Total Body Renewal (60 min)">$70 — Total Body Renewal (60 min)</option>
-          <option value="Radiance Facial Flow (45 min)">$55 — Radiance Facial Flow (45 min)</option>
-        </select>
-      </label>
-      <label>Contact Email
-        <input id="clientEmail" type="email" placeholder="you@example.com" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px">
-      </label>
+    <div class="calendar-embed">
+      <iframe
+        src="https://calendar.google.com/calendar/embed?src=34b8353c5e5fafaf44c6c417b48770b9f17a5de90476efaf18b7a42e2d91daf9%40group.calendar.google.com&ctz=America%2FLos_Angeles&showPrint=0&showTz=0&showTitle=0&showCalendars=0&mode=MONTH&wkst=1"
+        style="border:0"
+        width="100%"
+        height="650"
+        frameborder="0"
+        scrolling="no"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
     </div>
 
-    <div style="margin-top:12px">
-      <button id="requestBtn" class="btn primary">Request Booking</button>
-      <span id="reqMsg" class="small" style="margin-left:10px;color:#6b7280"></span>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
+      <a class="btn primary" href="mailto:contact@revivebylize.com?subject=Booking%20Request&body=Hi%20Lize%2C%0A%0AI%20saw%20your%20availability%20and%20would%20like%20to%20book%20on%20[DATE]%20at%20[TIME].%0AService%3A%20Gentle%20Recovery%20Flow%20%2F%20Total%20Body%20Renewal%20%2F%20Radiance%20Facial%20Flow%0A%0AThanks!">Request Booking by Email</a>
+      <a class="btn secondary" href="#services">See Services & Prices</a>
     </div>
-  </div>
-
-  <div class="cal-legend" style="margin-top:10px">
-    <span><span class="chip ok"></span>Available</span>
-    <span><span class="chip no"></span>Unavailable</span>
   </div>
 </section>
 
@@ -188,17 +164,9 @@
     <p><strong>Email:</strong> <a href="mailto:contact@revivebylize.com">contact@revivebylize.com</a></p>
     <p><strong>Hours:</strong> Evenings & Weekends • By appointment</p>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <!-- If you have a fixed address later, replace the query in these links or embed a map iframe -->
       <a class="btn secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Revive+by+Lize+San+Jose">Open in Google Maps</a>
       <a class="btn secondary" target="_blank" rel="noopener" href="http://maps.apple.com/?q=Revive+by+Lize+San+Jose">Open in Apple Maps</a>
     </div>
-    <!-- Optional interactive Google Maps embed when you have the exact address:
-    <div style="margin-top:12px;overflow:hidden;border-radius:12px">
-      <iframe
-        src="https://www.google.com/maps?q=Revive%20by%20Lize%20San%20Jose&output=embed"
-        width="100%" height="320" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
-    -->
   </div>
 </section>
 
@@ -223,114 +191,7 @@
 </footer>
 
 <script>
-  // Footer year
   document.getElementById('year').textContent = new Date().getFullYear();
-
-  // --- Booking calendar config ---
-  // Set availability pattern here.
-  // Example: available Mon, Wed evenings and Sat/Sun.
-  const weeklyAvailability = {
-    0: true,   // Sun
-    1: false,  // Mon
-    2: true,   // Tue
-    3: false,  // Wed
-    4: true,   // Thu
-    5: false,  // Fri
-    6: true    // Sat
-  };
-  // Hours offered for available days:
-  const timeSlots = ["5:00 PM","6:30 PM","8:00 PM","Saturday 10:00 AM","Saturday 12:00 PM","Sunday 2:00 PM"];
-  // If you want precise per-day slots, you can map by weekday instead.
-
-  const calEl = document.getElementById('calendar');
-  let view = new Date(); // current month shown
-  let selectedDate = null;
-
-  function renderCalendar() {
-    calEl.innerHTML = "";
-    const head = document.createElement('div');
-    head.className = "cal-head";
-    const monthTitle = view.toLocaleString('default', {month:'long', year:'numeric'});
-    head.innerHTML = `
-      <button class="btn secondary" id="prev">&larr;</button>
-      <div style="font-weight:700">${monthTitle}</div>
-      <button class="btn secondary" id="next">&rarr;</button>
-    `;
-    calEl.appendChild(head);
-
-    const dow = document.createElement('div');
-    dow.className = "cal-grid";
-    ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(d=>{
-      const el = document.createElement('div'); el.className="dow"; el.textContent=d; dow.appendChild(el);
-    });
-    calEl.appendChild(dow);
-
-    const grid = document.createElement('div');
-    grid.className = "cal-grid";
-
-    const first = new Date(view.getFullYear(), view.getMonth(), 1);
-    const startIdx = first.getDay();
-    const daysInMonth = new Date(view.getFullYear(), view.getMonth()+1, 0).getDate();
-
-    // Leading blanks
-    for (let i=0;i<startIdx;i++){
-      const b=document.createElement('div'); b.className="day muted"; b.innerHTML=""; grid.appendChild(b);
-    }
-
-    for (let d=1; d<=daysInMonth; d++){
-      const date = new Date(view.getFullYear(), view.getMonth(), d);
-      const dayIdx = date.getDay();
-      const isFuture = date >= new Date(new Date().toDateString()); // today or later
-      const ok = weeklyAvailability[dayIdx] && isFuture;
-      const el = document.createElement('div');
-      el.className = "day " + (ok ? "ok" : "no");
-      el.textContent = d;
-      if (ok){
-        el.addEventListener('click', ()=>{
-          [...grid.querySelectorAll('.day')].forEach(x=>x.classList.remove('selected'));
-          el.classList.add('selected');
-          selectedDate = date;
-          populateTimes(dayIdx);
-        });
-      } else {
-        el.style.cursor = "not-allowed";
-      }
-      grid.appendChild(el);
-    }
-
-    calEl.appendChild(grid);
-
-    document.getElementById('prev').onclick = ()=>{ view.setMonth(view.getMonth()-1); renderCalendar(); };
-    document.getElementById('next').onclick = ()=>{ view.setMonth(view.getMonth()+1); renderCalendar(); };
-  }
-
-  function populateTimes(dayIdx){
-    const timeSel = document.getElementById('time');
-    timeSel.innerHTML = '<option value="">Select a time</option>';
-    // Simple example: same evening slots, plus weekend daytime.
-    const base = ["5:00 PM","6:30 PM","8:00 PM"];
-    let slots = base;
-    if (dayIdx===6){ slots = ["10:00 AM","12:00 PM","2:00 PM","4:00 PM"]; }   // Saturday
-    if (dayIdx===0){ slots = ["12:00 PM","2:00 PM","4:00 PM"]; }              // Sunday
-    slots.forEach(t=>{ const o=document.createElement('option'); o.value=t; o.textContent=t; timeSel.appendChild(o); });
-  }
-
-  document.getElementById('requestBtn').addEventListener('click', ()=>{
-    const time = document.getElementById('time').value;
-    const svc = document.getElementById('service').value;
-    const email = document.getElementById('clientEmail').value.trim();
-    const msg = document.getElementById('reqMsg');
-    if (!selectedDate){ msg.textContent="Please choose an available date."; return; }
-    if (!time){ msg.textContent="Please choose a time."; return; }
-    if (!email){ msg.textContent="Please enter your email."; return; }
-    const when = selectedDate.toLocaleDateString(undefined,{weekday:'long', month:'short', day:'numeric', year:'numeric'});
-    const subject = encodeURIComponent(`Booking Request — ${svc}`);
-    const body = encodeURIComponent(`Hello Lize,%0A%0AI'd like to book:%0AService: ${svc}%0ADate: ${when}%0ATime: ${time}%0AMy email: ${email}%0A%0AThank you!`);
-    window.location.href = `mailto:contact@revivebylize.com?subject=${subject}&body=${body}`;
-    msg.textContent = "Opening your email app to send the request…";
-  });
-
-  renderCalendar();
 </script>
 </body>
 </html>
