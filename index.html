@@ -17,9 +17,8 @@
   const reqMsg  = document.getElementById('reqMsg');
   const emailEl = document.getElementById('clientEmail');
 
-  let view = new Date();      // current month shown
-  let selectedDateISO = null; // YYYY-MM-DD
-  let selectedDayIdx = null;  // 0..6
+  let view = new Date();
+  let selectedDateISO = null;
 
   function ymd(date){
     const y = date.getFullYear();
@@ -29,7 +28,7 @@
   }
 
   function renderCalendar(){
-    if(!calEl) return; // If you swapped to an external embed, this script will just handle booking.
+    if(!calEl) return;
     calEl.innerHTML = "";
 
     const head = document.createElement('div');
@@ -56,7 +55,6 @@
     const startIdx = first.getDay();
     const daysInMonth = new Date(view.getFullYear(), view.getMonth()+1, 0).getDate();
 
-    // leading blanks
     for(let i=0;i<startIdx;i++){ const b=document.createElement('div'); b.className="day muted"; grid.appendChild(b); }
 
     for(let d=1; d<=daysInMonth; d++){
@@ -72,8 +70,7 @@
           [...grid.querySelectorAll('.day')].forEach(x=>x.classList.remove('selected'));
           el.classList.add('selected');
           selectedDateISO = ymd(date);
-          selectedDayIdx = date.getDay();
-          await loadTimesFor(selectedDateISO); // <- LIVE times via /api/freebusy
+          await loadTimesFor(selectedDateISO);
         });
       } else {
         el.style.cursor = "not-allowed";
@@ -86,19 +83,19 @@
     document.getElementById('next').onclick = ()=>{ view.setMonth(view.getMonth()+1); renderCalendar(); };
   }
 
-  // ==== LOAD TIMES from your secure backend ====
   async function loadTimesFor(dateISO){
-    if(!SERVICE_LABELS.includes(svcSel.value)) {
-      // Fallback to first service if values differ
-      svcSel.value = SERVICE_LABELS[0];
-    }
-    timeSel.innerHTML = '<option value="">Loading…</option>';
+    if(!svcSel) return;
+    const wanted = ["Gentle Recovery Flow (60 min)","Total Body Renewal (60 min)","Radiance Facial Flow (45 min)"];
+    if(!wanted.includes(svcSel.value)) svcSel.value = wanted[0];
+
+    if(timeSel) timeSel.innerHTML = '<option value="">Loading…</option>';
     try{
       const url = `/api/freebusy?date=${encodeURIComponent(dateISO)}&service=${encodeURIComponent(svcSel.value)}`;
       const r = await fetch(url);
       const data = await r.json();
       const slots = Array.isArray(data.slots) ? data.slots : [];
 
+      if(!timeSel) return;
       timeSel.innerHTML = '<option value="">Select a time</option>';
       if(slots.length === 0){
         const o = document.createElement('option');
@@ -114,24 +111,23 @@
         timeSel.appendChild(o);
       });
     }catch(e){
-      timeSel.innerHTML = '<option value="">Error loading times</option>';
+      if(timeSel) timeSel.innerHTML = '<option value="">Error loading times</option>';
     }
   }
 
-  // If service changes and a date is selected, reload times
   if(svcSel){
     svcSel.addEventListener('change', ()=>{
       if(selectedDateISO) loadTimesFor(selectedDateISO);
     });
   }
 
-  // ==== BOOK ====
   if(reqBtn){
     reqBtn.addEventListener('click', async ()=>{
+      if(!reqMsg) return;
       reqMsg.textContent = "";
-      const isoStart = timeSel.value;
-      const service  = svcSel.value;
-      const email    = (emailEl.value || "").trim();
+      const isoStart = timeSel && timeSel.value;
+      const service  = svcSel && svcSel.value;
+      const email    = (emailEl && emailEl.value || "").trim();
 
       if(!selectedDateISO){ reqMsg.textContent = "Please pick a date."; return; }
       if(!isoStart){ reqMsg.textContent = "Please pick a time."; return; }
@@ -149,8 +145,6 @@
         if(data && data.ok){
           reqMsg.style.color = "#16a34a";
           reqMsg.textContent = "Booked! A confirmation email was sent to you.";
-          // Optionally: clear selection
-          // timeSel.selectedIndex = 0; emailEl.value = "";
         }else{
           reqMsg.style.color = "#ef4444";
           reqMsg.textContent = "Booking failed. Please try again.";
@@ -164,6 +158,5 @@
     });
   }
 
-  // Initial render
   renderCalendar();
 </script>
