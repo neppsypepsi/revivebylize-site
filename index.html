@@ -8,58 +8,35 @@
 <style>
   :root{--bg:#f6f7f6;--ink:#1f2937;--muted:#6b7280;--accent:#5fa08e;--accent-2:#cfe3dc;--card:#fff;--hdr:72px;--ok:#16a34a;--no:#ef4444}
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial;color:var(--ink);background:var(--bg);line-height:1.6}
   .container{max-width:1100px;margin:0 auto;padding:0 20px}
-  section{padding:64px 20px;scroll-margin-top:var(--hdr)}
+  section{padding:64px 20px}
   h1,h2{margin:0 0 14px}
   h2{font-size:28px}
   .sub{color:var(--muted)}
   .card{background:var(--card);border:1px solid #e5e7eb;border-radius:14px;padding:18px;box-shadow:0 6px 16px rgba(0,0,0,.04)}
   .row{display:flex;align-items:center;justify-content:space-between;gap:16px}
   .topbar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid #e5e7eb}
-  .brand{font-weight:700;letter-spacing:.3px;padding:16px 0}
+  .brand{font-weight:700;padding:16px 0}
   nav{display:flex;gap:16px;flex-wrap:wrap}
   nav a{color:var(--ink);text-decoration:none;font-weight:500;padding:10px 8px;border-radius:10px}
-  nav a:hover{background:#f3f4f6}
   nav a.cta{background:var(--accent);color:#fff;padding:10px 16px;border-radius:999px}
-  .hero{background:linear-gradient(135deg,var(--accent-2),#f0f5f3)}
-  .hero-inner{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;padding:72px 20px}
-  .hero h1{font-size:42px;line-height:1.15}
-  .hero p{color:var(--muted);font-size:18px;margin:0 0 24px}
-  .btn{display:inline-block;text-decoration:none;font-weight:600;padding:12px 18px;border-radius:999px}
-  .btn.primary{background:var(--accent);color:#fff}
-  .btn.secondary{background:#fff;color:var(--ink);border:1px solid #e5e7eb}
-  .hero-visual{border-radius:18px;min-height:280px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.08);background:#ddd}
-  .hero-visual img{width:100%;height:100%;object-fit:cover;display:block}
   .services{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:16px}
-  @media(max-width:900px){.hero-inner{grid-template-columns:1fr}.services{grid-template-columns:1fr}}
   .card h3{margin:0 0 6px;font-size:18px}
   .visual{height:160px;border-radius:12px;margin-bottom:12px;overflow:hidden;background:#eee}
-  .visual img{width:100%;height:100%;object-fit:cover;display:block}
+  .visual img{width:100%;height:100%;object-fit:cover}
   .price{font-weight:700;margin-top:8px}
-  .about{display:grid;grid-template-columns:1fr 1.1fr;gap:24px;margin-top:18px}
-  @media(max-width:900px){.about{grid-template-columns:1fr}}
-  .about-visual{border-radius:14px;min-height:280px;overflow:hidden;background:#f1f5f9}
-  .about-visual img{width:100%;height:100%;object-fit:cover;display:block}
-  .calendar{display:grid;gap:12px}
+  .calendar{display:grid;gap:12px;margin-top:20px}
   .cal-head{display:flex;justify-content:space-between;align-items:center}
   .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
   .dow{font-size:12px;color:#6b7280;text-align:center}
-  .day{padding:10px;border-radius:10px;text-align:center;border:1px solid #e5e7eb;background:#fff;cursor:pointer;user-select:none}
+  .day{padding:10px;border-radius:10px;text-align:center;border:1px solid #e5e7eb;background:#fff;cursor:pointer}
   .day.muted{color:#9ca3af;background:#f9fafb}
   .day.ok{border-color:#86efac;background:#ecfdf5}
   .day.no{border-color:#fecaca;background:#fff1f2}
   .day.selected{outline:3px solid #5fa08e}
-  .cal-legend{display:flex;gap:10px;align-items:center;font-size:12px;color:#6b7280}
-  .chip{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px}
-  .chip.ok{background:#22c55e}
-  .chip.no{background:#ef4444}
   footer{background:#fff;border-top:1px solid #e5e7eb;color:#4b5563;margin-top:40px}
-  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px;padding:22px 0}
-  @media(max-width:900px){.footer-grid{grid-template-columns:1fr}}
-  .small{font-size:13px;color:#6b7280}
-  .credits{border-top:1px solid #e5e7eb;margin-top:24px;padding:16px 0;font-size:12px}
+  .credits{border-top:1px solid #e5e7eb;margin-top:24px;padding:16px 0;font-size:12px;text-align:center}
 </style>
 </head>
 <body>
@@ -76,50 +53,23 @@
   </div>
 </header>
 
-<section class="hero">
-  <div class="container hero-inner">
-    <div>
-      <h1>Healing hands. Restoring balance.</h1>
-      <p>Massage therapy crafted with care for recovery, renewal, and radiant relaxation.</p>
-      <a class="btn primary" href="#booking">Book an Appointment</a>
-      <a class="btn secondary" href="#services">See Services</a>
-    </div>
-    <div class="hero-visual"></div>
-  </div>
-</section>
-
 <section id="services" class="container">
   <h2>Services</h2>
-  <div class="sub">Fair, accessible pricing — quality care without $100/hour price tags.</div>
   <div class="services">
     <div class="card">
       <div class="visual"><img src="GRF.png" alt="Gentle Recovery Flow"></div>
       <h3>Gentle Recovery Flow</h3>
       <div class="price">$75 • 60 min</div>
-      <p>A light, careful touch designed to support your body’s natural healing after surgery.</p>
     </div>
     <div class="card">
       <div class="visual"><img src="TBR.png" alt="Total Body Renewal"></div>
       <h3>Total Body Renewal</h3>
       <div class="price">$70 • 60 min</div>
-      <p>A full‑body, calming treatment to help you feel lighter, more energized, and balanced.</p>
     </div>
     <div class="card">
       <div class="visual"><img src="RFF.png" alt="Radiance Facial Flow"></div>
       <h3>Radiance Facial Flow</h3>
       <div class="price">$55 • 45 min</div>
-      <p>A soothing facial massage designed to refresh your skin and release tension.</p>
-    </div>
-  </div>
-</section>
-
-<section id="about" class="container">
-  <h2>About Lize</h2>
-  <div class="about">
-    <div class="about-visual"></div>
-    <div>
-      <p>Lize, a CNA with years of caregiving experience, is now following her passion for massage therapy. She blends skill and empathy to provide safe, restorative sessions tailored to each client’s needs.</p>
-      <p>Her goal is simple: help you feel revived — whether recovering from surgery, managing daily stress, or seeking radiant relaxation.</p>
     </div>
   </div>
 </section>
@@ -129,42 +79,83 @@
   <div id="calendar" class="calendar"></div>
   <div style="margin-top:12px">
     <label>Time
-      <select id="time" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px">
-        <option value="">Select a time</option>
-      </select>
+      <select id="time"><option value="">Select a time</option></select>
     </label>
     <label>Service
-      <select id="service" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px">
+      <select id="service">
         <option value="Gentle Recovery Flow (60 min)">Gentle Recovery Flow</option>
         <option value="Total Body Renewal (60 min)">Total Body Renewal</option>
         <option value="Radiance Facial Flow (45 min)">Radiance Facial Flow</option>
       </select>
     </label>
-    <label>Contact Email
-      <input id="clientEmail" type="email" placeholder="you@example.com" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px">
+    <label>Email
+      <input id="clientEmail" type="email" placeholder="you@example.com">
     </label>
-    <button id="requestBtn" class="btn primary">Request Booking</button>
-    <span id="reqMsg" class="small" style="margin-left:10px;color:#6b7280"></span>
-  </div>
-</section>
-
-<section id="contact" class="container">
-  <h2>Contact & Location</h2>
-  <div class="card">
-    <p><strong>Email:</strong> <a href="mailto:contact@revivebylize.com">contact@revivebylize.com</a></p>
-    <p><strong>Hours:</strong> Evenings & Weekends • By appointment</p>
+    <button id="requestBtn">Request Booking</button>
+    <span id="reqMsg"></span>
   </div>
 </section>
 
 <footer>
-  <div class="container">
-    <div class="credits">© <span id="year"></span> Revive by Lize</div>
-  </div>
+  <div class="credits">© <span id="year"></span> Revive by Lize</div>
 </footer>
 
 <script>
+// ==== Footer year ====
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+// ==== Calendar ====
+const calEl = document.getElementById('calendar');
+let view = new Date();
+let selectedDateISO = null;
+
+function ymd(d){
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+function renderCalendar(){
+  calEl.innerHTML = "";
+  const head = document.createElement('div');
+  head.className="cal-head";
+  head.innerHTML=`<button id="prev">&larr;</button><div>${view.toLocaleString('default',{month:'long',year:'numeric'})}</div><button id="next">&rarr;</button>`;
+  calEl.appendChild(head);
+
+  const labels=document.createElement('div');
+  labels.className="cal-grid";
+  ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(d=>{
+    const el=document.createElement('div');el.className="dow";el.textContent=d;labels.appendChild(el);
+  });
+  calEl.appendChild(labels);
+
+  const grid=document.createElement('div');
+  grid.className="cal-grid";
+  const first=new Date(view.getFullYear(),view.getMonth(),1);
+  const startIdx=first.getDay();
+  const daysInMonth=new Date(view.getFullYear(),view.getMonth()+1,0).getDate();
+
+  for(let i=0;i<startIdx;i++){const b=document.createElement('div');b.className="day muted";grid.appendChild(b);}
+  for(let d=1;d<=daysInMonth;d++){
+    const date=new Date(view.getFullYear(),view.getMonth(),d);
+    const today=new Date(new Date().toDateString());
+    const future=date>=today;
+    const el=document.createElement('div');
+    el.className="day "+(future?"ok":"no");
+    el.textContent=d;
+    if(future){
+      el.addEventListener('click',()=>{
+        [...grid.querySelectorAll('.day')].forEach(x=>x.classList.remove('selected'));
+        el.classList.add('selected');
+        selectedDateISO=ymd(date);
+      });
+    }
+    grid.appendChild(el);
+  }
+  calEl.appendChild(grid);
+  document.getElementById('prev').onclick=()=>{view.setMonth(view.getMonth()-1);renderCalendar();};
+  document.getElementById('next').onclick=()=>{view.setMonth(view.getMonth()+1);renderCalendar();};
+}
+renderCalendar();
 </script>
 </body>
 </html>
