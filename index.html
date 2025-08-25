@@ -1,166 +1,199 @@
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="name" style="font-weight:700">Revive by Lize</div>
+        <div class="small">Massage therapy for healing, renewal, and radiant relaxation.</div>
+      </div>
+      <div>
+        <div class="small"><strong>Quick links</strong></div>
+        <div class="small">
+          <a href="#services">Services</a> · 
+          <a href="#about">About</a> · 
+          <a href="#booking">Book</a> · 
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="small"><strong>Payments</strong></div>
+        <div class="small">Zelle • Cash (in person)</div>
+      </div>
+    </div>
+    <div class="credits">© <span id="year"></span> Revive by Lize</div>
+  </div>
+</footer>
+
 <script>
-// Safe footer year (don’t crash if #year isn’t found)
+// ==== Footer Year ====
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
-<script>
-  // Footer year
-  document.getElementById('year').textContent = new Date().getFullYear();
 
-  // ==== CONFIG (labels must match your <select id="service"> options) ====
-  const SERVICE_LABELS = [
-    "Gentle Recovery Flow (60 min)",
-    "Total Body Renewal (60 min)",
-    "Radiance Facial Flow (45 min)"
-  ];
+// ==== CONFIG (labels must match your <select id="service"> options) ====
+const SERVICE_LABELS = [
+  "Gentle Recovery Flow (60 min)",
+  "Total Body Renewal (60 min)",
+  "Radiance Facial Flow (45 min)"
+];
 
-  // ==== CALENDAR RENDER (same look as before, but now loads live times) ====
-  const calEl = document.getElementById('calendar');
-  const timeSel = document.getElementById('time');
-  const svcSel  = document.getElementById('service');
-  const reqBtn  = document.getElementById('requestBtn');
-  const reqMsg  = document.getElementById('reqMsg');
-  const emailEl = document.getElementById('clientEmail');
+// ==== DOM Elements ====
+const calEl = document.getElementById('calendar');
+const timeSel = document.getElementById('time');
+const svcSel  = document.getElementById('service');
+const reqBtn  = document.getElementById('requestBtn');
+const reqMsg  = document.getElementById('reqMsg');
+const emailEl = document.getElementById('clientEmail');
 
-  let view = new Date();
-  let selectedDateISO = null;
+let view = new Date();
+let selectedDateISO = null;
 
-  function ymd(date){
-    const y = date.getFullYear();
-    const m = String(date.getMonth()+1).padStart(2,'0');
-    const d = String(date.getDate()).padStart(2,'0');
-    return `${y}-${m}-${d}`;
+// Helper: format YYYY-MM-DD
+function ymd(date){
+  const y = date.getFullYear();
+  const m = String(date.getMonth()+1).padStart(2,'0');
+  const d = String(date.getDate()).padStart(2,'0');
+  return `${y}-${m}-${d}`;
+}
+
+// ==== CALENDAR ====
+function renderCalendar(){
+  if(!calEl) return;
+  calEl.innerHTML = "";
+
+  const head = document.createElement('div');
+  head.className = "cal-head";
+  const monthTitle = view.toLocaleString('default',{month:'long',year:'numeric'});
+  head.innerHTML = `
+    <button class="btn secondary" id="prev">&larr;</button>
+    <div style="font-weight:700">${monthTitle}</div>
+    <button class="btn secondary" id="next">&rarr;</button>
+  `;
+  calEl.appendChild(head);
+
+  const labels = document.createElement('div');
+  labels.className = "cal-grid";
+  ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(d=>{
+    const el = document.createElement('div'); el.className="dow"; el.textContent=d; labels.appendChild(el);
+  });
+  calEl.appendChild(labels);
+
+  const grid = document.createElement('div');
+  grid.className = "cal-grid";
+
+  const first = new Date(view.getFullYear(), view.getMonth(), 1);
+  const startIdx = first.getDay();
+  const daysInMonth = new Date(view.getFullYear(), view.getMonth()+1, 0).getDate();
+
+  for(let i=0;i<startIdx;i++){ 
+    const b=document.createElement('div'); 
+    b.className="day muted"; 
+    grid.appendChild(b); 
   }
 
-  function renderCalendar(){
-    if(!calEl) return;
-    calEl.innerHTML = "";
+  for(let d=1; d<=daysInMonth; d++){
+    const date = new Date(view.getFullYear(), view.getMonth(), d);
+    const today = new Date(new Date().toDateString());
+    const isFuture = date >= today;
 
-    const head = document.createElement('div');
-    head.className = "cal-head";
-    const monthTitle = view.toLocaleString('default',{month:'long',year:'numeric'});
-    head.innerHTML = `
-      <button class="btn secondary" id="prev">&larr;</button>
-      <div style="font-weight:700">${monthTitle}</div>
-      <button class="btn secondary" id="next">&rarr;</button>
-    `;
-    calEl.appendChild(head);
+    const el = document.createElement('div');
+    el.className = "day " + (isFuture ? "ok" : "no");
+    el.textContent = d;
 
-    const labels = document.createElement('div');
-    labels.className = "cal-grid";
-    ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(d=>{
-      const el = document.createElement('div'); el.className="dow"; el.textContent=d; labels.appendChild(el);
-    });
-    calEl.appendChild(labels);
-
-    const grid = document.createElement('div');
-    grid.className = "cal-grid";
-
-    const first = new Date(view.getFullYear(), view.getMonth(), 1);
-    const startIdx = first.getDay();
-    const daysInMonth = new Date(view.getFullYear(), view.getMonth()+1, 0).getDate();
-
-    for(let i=0;i<startIdx;i++){ const b=document.createElement('div'); b.className="day muted"; grid.appendChild(b); }
-
-    for(let d=1; d<=daysInMonth; d++){
-      const date = new Date(view.getFullYear(), view.getMonth(), d);
-      const today = new Date(new Date().toDateString());
-      const isFuture = date >= today;
-
-      const el = document.createElement('div');
-      el.className = "day " + (isFuture ? "ok" : "no");
-      el.textContent = d;
-      if(isFuture){
-        el.addEventListener('click', async ()=>{
-          [...grid.querySelectorAll('.day')].forEach(x=>x.classList.remove('selected'));
-          el.classList.add('selected');
-          selectedDateISO = ymd(date);
-          await loadTimesFor(selectedDateISO);
-        });
-      } else {
-        el.style.cursor = "not-allowed";
-      }
-      grid.appendChild(el);
-    }
-    calEl.appendChild(grid);
-
-    document.getElementById('prev').onclick = ()=>{ view.setMonth(view.getMonth()-1); renderCalendar(); };
-    document.getElementById('next').onclick = ()=>{ view.setMonth(view.getMonth()+1); renderCalendar(); };
-  }
-
-  async function loadTimesFor(dateISO){
-    if(!svcSel) return;
-    const wanted = ["Gentle Recovery Flow (60 min)","Total Body Renewal (60 min)","Radiance Facial Flow (45 min)"];
-    if(!wanted.includes(svcSel.value)) svcSel.value = wanted[0];
-
-    if(timeSel) timeSel.innerHTML = '<option value="">Loading…</option>';
-    try{
-      const url = `/api/freebusy?date=${encodeURIComponent(dateISO)}&service=${encodeURIComponent(svcSel.value)}`;
-      const r = await fetch(url);
-      const data = await r.json();
-      const slots = Array.isArray(data.slots) ? data.slots : [];
-
-      if(!timeSel) return;
-      timeSel.innerHTML = '<option value="">Select a time</option>';
-      if(slots.length === 0){
-        const o = document.createElement('option');
-        o.value = ""; o.textContent = "No times available";
-        timeSel.appendChild(o);
-        return;
-      }
-      slots.forEach(iso=>{
-        const d = new Date(iso);
-        const label = d.toLocaleTimeString([], {hour:'numeric', minute:'2-digit'});
-        const o = document.createElement('option');
-        o.value = iso; o.textContent = label;
-        timeSel.appendChild(o);
+    if(isFuture){
+      el.addEventListener('click', async ()=>{
+        [...grid.querySelectorAll('.day')].forEach(x=>x.classList.remove('selected'));
+        el.classList.add('selected');
+        selectedDateISO = ymd(date);
+        await loadTimesFor(selectedDateISO);
       });
-    }catch(e){
-      if(timeSel) timeSel.innerHTML = '<option value="">Error loading times</option>';
+    } else {
+      el.style.cursor = "not-allowed";
     }
+    grid.appendChild(el);
   }
+  calEl.appendChild(grid);
 
-  if(svcSel){
-    svcSel.addEventListener('change', ()=>{
-      if(selectedDateISO) loadTimesFor(selectedDateISO);
+  document.getElementById('prev').onclick = ()=>{ view.setMonth(view.getMonth()-1); renderCalendar(); };
+  document.getElementById('next').onclick = ()=>{ view.setMonth(view.getMonth()+1); renderCalendar(); };
+}
+
+// ==== LOAD TIMES (from backend) ====
+async function loadTimesFor(dateISO){
+  if(!svcSel) return;
+  if(!SERVICE_LABELS.includes(svcSel.value)) svcSel.value = SERVICE_LABELS[0];
+
+  if(timeSel) timeSel.innerHTML = '<option value="">Loading…</option>';
+  try{
+    const url = `/api/freebusy?date=${encodeURIComponent(dateISO)}&service=${encodeURIComponent(svcSel.value)}`;
+    const r = await fetch(url);
+    const data = await r.json();
+    const slots = Array.isArray(data.slots) ? data.slots : [];
+
+    if(!timeSel) return;
+    timeSel.innerHTML = '<option value="">Select a time</option>';
+    if(slots.length === 0){
+      const o = document.createElement('option');
+      o.value = ""; o.textContent = "No times available";
+      timeSel.appendChild(o);
+      return;
+    }
+    slots.forEach(iso=>{
+      const d = new Date(iso);
+      const label = d.toLocaleTimeString([], {hour:'numeric', minute:'2-digit'});
+      const o = document.createElement('option');
+      o.value = iso; o.textContent = label;
+      timeSel.appendChild(o);
     });
+  }catch(e){
+    if(timeSel) timeSel.innerHTML = '<option value="">Error loading times</option>';
   }
+}
 
-  if(reqBtn){
-    reqBtn.addEventListener('click', async ()=>{
-      if(!reqMsg) return;
-      reqMsg.textContent = "";
-      const isoStart = timeSel && timeSel.value;
-      const service  = svcSel && svcSel.value;
-      const email    = (emailEl && emailEl.value || "").trim();
+if(svcSel){
+  svcSel.addEventListener('change', ()=>{
+    if(selectedDateISO) loadTimesFor(selectedDateISO);
+  });
+}
 
-      if(!selectedDateISO){ reqMsg.textContent = "Please pick a date."; return; }
-      if(!isoStart){ reqMsg.textContent = "Please pick a time."; return; }
-      if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ reqMsg.textContent = "Enter a valid email."; return; }
+// ==== BOOK ====
+if(reqBtn){
+  reqBtn.addEventListener('click', async ()=>{
+    if(!reqMsg) return;
+    reqMsg.textContent = "";
+    const isoStart = timeSel && timeSel.value;
+    const service  = svcSel && svcSel.value;
+    const email    = (emailEl && emailEl.value || "").trim();
 
-      reqBtn.disabled = true; reqBtn.textContent = "Booking…";
+    if(!selectedDateISO){ reqMsg.textContent = "Please pick a date."; return; }
+    if(!isoStart){ reqMsg.textContent = "Please pick a time."; return; }
+    if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ reqMsg.textContent = "Enter a valid email."; return; }
 
-      try{
-        const r = await fetch('/api/book',{
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({ isoStart, service, email })
-        });
-        const data = await r.json();
-        if(data && data.ok){
-          reqMsg.style.color = "#16a34a";
-          reqMsg.textContent = "Booked! A confirmation email was sent to you.";
-        }else{
-          reqMsg.style.color = "#ef4444";
-          reqMsg.textContent = "Booking failed. Please try again.";
-        }
-      }catch(e){
+    reqBtn.disabled = true; reqBtn.textContent = "Booking…";
+
+    try{
+      const r = await fetch('/api/book',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ isoStart, service, email })
+      });
+      const data = await r.json();
+      if(data && data.ok){
+        reqMsg.style.color = "#16a34a";
+        reqMsg.textContent = "Booked! A confirmation email was sent to you.";
+      }else{
         reqMsg.style.color = "#ef4444";
-        reqMsg.textContent = "Network error. Please try again.";
-      }finally{
-        reqBtn.disabled = false; reqBtn.textContent = "Request Booking";
+        reqMsg.textContent = "Booking failed. Please try again.";
       }
-    });
-  }
+    }catch(e){
+      reqMsg.style.color = "#ef4444";
+      reqMsg.textContent = "Network error. Please try again.";
+    }finally{
+      reqBtn.disabled = false; reqBtn.textContent = "Request Booking";
+    }
+  });
+}
 
-  renderCalendar();
+// ==== Kick things off ====
+renderCalendar();
 </script>
+</body>
+</html>
