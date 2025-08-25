@@ -1,197 +1,169 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Revive by Lize — Massage Therapy</title>
-<meta name="description" content="Massage therapy for healing, renewal, and radiant relaxation in the Bay Area. Gentle Recovery Flow, Total Body Renewal, Radiance Facial Flow.">
-<style>
-  :root{--bg:#f6f7f6;--ink:#1f2937;--muted:#6b7280;--accent:#5fa08e;--accent-2:#cfe3dc;--card:#fff;--hdr:72px}
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial;color:var(--ink);background:var(--bg);line-height:1.6}
-  .container{max-width:1100px;margin:0 auto;padding:0 20px}
-  section{padding:64px 20px;scroll-margin-top:var(--hdr)}
-  h1,h2{margin:0 0 14px}
-  h2{font-size:28px}
-  .sub{color:var(--muted)}
-  .card{background:var(--card);border:1px solid #e5e7eb;border-radius:14px;padding:18px;box-shadow:0 6px 16px rgba(0,0,0,.04)}
-  .row{display:flex;align-items:center;justify-content:space-between;gap:16px}
-
-  /* Header */
-  .topbar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid #e5e7eb}
-  .brand{font-weight:700;letter-spacing:.3px;padding:16px 0}
-  nav{display:flex;gap:16px;flex-wrap:wrap}
-  nav a{color:var(--ink);text-decoration:none;font-weight:500;padding:10px 8px;border-radius:10px}
-  nav a:hover{background:#f3f4f6}
-  nav a.cta{background:var(--accent);color:#fff;padding:10px 16px;border-radius:999px}
-
-  /* Hero */
-  .hero{background:linear-gradient(135deg,var(--accent-2),#f0f5f3)}
-  .hero-inner{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;padding:72px 20px}
-  .hero h1{font-size:42px;line-height:1.15}
-  .hero p{color:var(--muted);font-size:18px;margin:0 0 24px}
-  .btn{display:inline-block;text-decoration:none;font-weight:600;padding:12px 18px;border-radius:999px}
-  .btn.primary{background:var(--accent);color:#fff}
-  .btn.secondary{background:#fff;color:var(--ink);border:1px solid #e5e7eb}
-  .hero-visual{border-radius:18px;min-height:280px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.08);background:#ddd}
-  .hero-visual img{width:100%;height:100%;object-fit:cover;display:block}
-
-  /* Services */
-  .services{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:16px}
-  @media(max-width:900px){.hero-inner{grid-template-columns:1fr}.services{grid-template-columns:1fr}}
-  .card h3{margin:0 0 6px;font-size:18px}
-  .visual{height:160px;border-radius:12px;margin-bottom:12px;overflow:hidden;background:#eee}
-  .visual img{width:100%;height:100%;object-fit:cover;display:block}
-  .price{font-weight:700;margin-top:8px}
-
-  /* Two-column about */
-  .about{display:grid;grid-template-columns:1fr 1.1fr;gap:24px;margin-top:18px}
-  @media(max-width:900px){.about{grid-template-columns:1fr}}
-  .about-visual{border-radius:14px;min-height:280px;overflow:hidden;background:#f1f5f9}
-  .about-visual img{width:100%;height:100%;object-fit:cover;display:block}
-
-  /* Booking embed */
-  .calendar-embed iframe{width:100%;height:650px;border:0}
-  @media (max-width:900px){.calendar-embed iframe{height:520px}}
-
-  /* Footer */
-  footer{background:#fff;border-top:1px solid #e5e7eb;color:#4b5563;margin-top:40px}
-  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px;padding:22px 0}
-  @media(max-width:900px){.footer-grid{grid-template-columns:1fr}}
-  .small{font-size:13px;color:#6b7280}
-  .credits{border-top:1px solid #e5e7eb;margin-top:24px;padding:16px 0;font-size:12px}
-</style>
-</head>
-<body>
-<header class="topbar">
-  <div class="container row">
-    <div class="brand">Revive by Lize</div>
-    <nav>
-      <a href="#services">Services</a>
-      <a href="#about">About</a>
-      <a href="#booking">Book</a>
-      <a href="#contact">Contact</a>
-      <a class="cta" href="mailto:contact@revivebylize.com">Email</a>
-    </nav>
-  </div>
-</header>
-
-<section class="hero">
-  <div class="container hero-inner">
-    <div>
-      <h1>Healing hands. Restoring balance.</h1>
-      <p>Massage therapy crafted with care for recovery, renewal, and radiant relaxation.</p>
-      <a class="btn primary" href="#booking">Book an Appointment</a>
-      <a class="btn secondary" href="#services">See Services</a>
-    </div>
-    <div class="hero-visual">
-      <!-- Optional hero visual -->
-      <!-- <img src="assets/hero.jpg" alt="Massage ambiance"> -->
-    </div>
-  </div>
-</section>
-
-<section id="services" class="container">
-  <h2>Services</h2>
-  <div class="sub">Fair, accessible pricing — quality care without $100/hour price tags.</div>
-
-  <div class="services">
-    <div class="card">
-      <div class="visual"><img src="GRF.png" alt="Gentle Recovery Flow"></div>
-      <h3>Gentle Recovery Flow</h3>
-      <div class="price">$75 • 60 min</div>
-      <p>A light, careful touch designed to support your body’s natural healing after surgery. Slow, fluid strokes help reduce swelling, ease tension, and encourage circulation.</p>
-    </div>
-
-    <div class="card">
-      <div class="visual"><img src="TBR.png" alt="Total Body Renewal"></div>
-      <h3>Total Body Renewal</h3>
-      <div class="price">$70 • 60 min</div>
-      <p>A full-body, calming treatment to help you feel lighter, more energized, and balanced. Gentle pressure encourages healthy fluid movement, reduces puffiness, and deeply relaxes.</p>
-    </div>
-
-    <div class="card">
-      <div class="visual"><img src="RFF.png" alt="Radiance Facial Flow"></div>
-      <h3>Radiance Facial Flow</h3>
-      <div class="price">$55 • 45 min</div>
-      <p>A soothing facial massage designed to refresh your skin and release tension. Rhythmic motions reduce puffiness, improve tone, and leave skin vibrant while your mind unwinds.</p>
-    </div>
-  </div>
-</section>
-
-<section id="about" class="container">
-  <h2>About Lize</h2>
-  <div class="about">
-    <div class="about-visual">
-      <!-- Add later when ready -->
-      <!-- <img src="assets/about.jpg" alt="About Lize"> -->
-    </div>
-    <div>
-      <p>Lize, a CNA with years of caregiving experience, is now following her passion for massage therapy. She blends skill and empathy to provide safe, restorative sessions tailored to each client’s needs.</p>
-      <p>Her goal is simple: help you feel revived — whether recovering from surgery, managing daily stress, or seeking radiant relaxation.</p>
-    </div>
-  </div>
-</section>
-
-<section id="booking" class="container">
-  <h2>Book an Appointment</h2>
-  <div class="sub">This calendar shows live availability. Busy times are blocked. To request a slot, email us below.</div>
-  <div class="card" style="margin-top:14px">
-    <div class="calendar-embed">
-      <iframe
-        src="https://calendar.google.com/calendar/embed?src=34b8353c5e5fafaf44c6c417b48770b9f17a5de90476efaf18b7a42e2d91daf9%40group.calendar.google.com&ctz=America%2FLos_Angeles&showPrint=0&showTz=0&showTitle=0&showCalendars=0&mode=MONTH&wkst=1"
-        style="border:0"
-        width="100%"
-        height="650"
-        frameborder="0"
-        scrolling="no"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-      ></iframe>
-    </div>
-
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
-      <a class="btn primary" href="mailto:contact@revivebylize.com?subject=Booking%20Request&body=Hi%20Lize%2C%0A%0AI%20saw%20your%20availability%20and%20would%20like%20to%20book%20on%20[DATE]%20at%20[TIME].%0AService%3A%20Gentle%20Recovery%20Flow%20%2F%20Total%20Body%20Renewal%20%2F%20Radiance%20Facial%20Flow%0A%0AThanks!">Request Booking by Email</a>
-      <a class="btn secondary" href="#services">See Services & Prices</a>
-    </div>
-  </div>
-</section>
-
-<section id="contact" class="container">
-  <h2>Contact & Location</h2>
-  <div class="card">
-    <p><strong>Email:</strong> <a href="mailto:contact@revivebylize.com">contact@revivebylize.com</a></p>
-    <p><strong>Hours:</strong> Evenings & Weekends • By appointment</p>
-    <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <a class="btn secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Revive+by+Lize+San+Jose">Open in Google Maps</a>
-      <a class="btn secondary" target="_blank" rel="noopener" href="http://maps.apple.com/?q=Revive+by+Lize+San+Jose">Open in Apple Maps</a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="name" style="font-weight:700">Revive by Lize</div>
-        <div class="small">Massage therapy for healing, renewal, and radiant relaxation.</div>
-      </div>
-      <div>
-        <div class="small"><strong>Quick links</strong></div>
-        <div class="small"><a href="#services">Services</a> · <a href="#about">About</a> · <a href="#booking">Book</a> · <a href="#contact">Contact</a></div>
-      </div>
-      <div>
-        <div class="small"><strong>Payments</strong></div>
-        <div class="small">Zelle • Cash (in person)</div>
-      </div>
-    </div>
-    <div class="credits">© <span id="year"></span> Revive by Lize</div>
-  </div>
-</footer>
-
 <script>
+  // Footer year
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ==== CONFIG (labels must match your <select id="service"> options) ====
+  const SERVICE_LABELS = [
+    "Gentle Recovery Flow (60 min)",
+    "Total Body Renewal (60 min)",
+    "Radiance Facial Flow (45 min)"
+  ];
+
+  // ==== CALENDAR RENDER (same look as before, but now loads live times) ====
+  const calEl = document.getElementById('calendar');
+  const timeSel = document.getElementById('time');
+  const svcSel  = document.getElementById('service');
+  const reqBtn  = document.getElementById('requestBtn');
+  const reqMsg  = document.getElementById('reqMsg');
+  const emailEl = document.getElementById('clientEmail');
+
+  let view = new Date();      // current month shown
+  let selectedDateISO = null; // YYYY-MM-DD
+  let selectedDayIdx = null;  // 0..6
+
+  function ymd(date){
+    const y = date.getFullYear();
+    const m = String(date.getMonth()+1).padStart(2,'0');
+    const d = String(date.getDate()).padStart(2,'0');
+    return `${y}-${m}-${d}`;
+  }
+
+  function renderCalendar(){
+    if(!calEl) return; // If you swapped to an external embed, this script will just handle booking.
+    calEl.innerHTML = "";
+
+    const head = document.createElement('div');
+    head.className = "cal-head";
+    const monthTitle = view.toLocaleString('default',{month:'long',year:'numeric'});
+    head.innerHTML = `
+      <button class="btn secondary" id="prev">&larr;</button>
+      <div style="font-weight:700">${monthTitle}</div>
+      <button class="btn secondary" id="next">&rarr;</button>
+    `;
+    calEl.appendChild(head);
+
+    const labels = document.createElement('div');
+    labels.className = "cal-grid";
+    ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(d=>{
+      const el = document.createElement('div'); el.className="dow"; el.textContent=d; labels.appendChild(el);
+    });
+    calEl.appendChild(labels);
+
+    const grid = document.createElement('div');
+    grid.className = "cal-grid";
+
+    const first = new Date(view.getFullYear(), view.getMonth(), 1);
+    const startIdx = first.getDay();
+    const daysInMonth = new Date(view.getFullYear(), view.getMonth()+1, 0).getDate();
+
+    // leading blanks
+    for(let i=0;i<startIdx;i++){ const b=document.createElement('div'); b.className="day muted"; grid.appendChild(b); }
+
+    for(let d=1; d<=daysInMonth; d++){
+      const date = new Date(view.getFullYear(), view.getMonth(), d);
+      const today = new Date(new Date().toDateString());
+      const isFuture = date >= today;
+
+      const el = document.createElement('div');
+      el.className = "day " + (isFuture ? "ok" : "no");
+      el.textContent = d;
+      if(isFuture){
+        el.addEventListener('click', async ()=>{
+          [...grid.querySelectorAll('.day')].forEach(x=>x.classList.remove('selected'));
+          el.classList.add('selected');
+          selectedDateISO = ymd(date);
+          selectedDayIdx = date.getDay();
+          await loadTimesFor(selectedDateISO); // <- LIVE times via /api/freebusy
+        });
+      } else {
+        el.style.cursor = "not-allowed";
+      }
+      grid.appendChild(el);
+    }
+    calEl.appendChild(grid);
+
+    document.getElementById('prev').onclick = ()=>{ view.setMonth(view.getMonth()-1); renderCalendar(); };
+    document.getElementById('next').onclick = ()=>{ view.setMonth(view.getMonth()+1); renderCalendar(); };
+  }
+
+  // ==== LOAD TIMES from your secure backend ====
+  async function loadTimesFor(dateISO){
+    if(!SERVICE_LABELS.includes(svcSel.value)) {
+      // Fallback to first service if values differ
+      svcSel.value = SERVICE_LABELS[0];
+    }
+    timeSel.innerHTML = '<option value="">Loading…</option>';
+    try{
+      const url = `/api/freebusy?date=${encodeURIComponent(dateISO)}&service=${encodeURIComponent(svcSel.value)}`;
+      const r = await fetch(url);
+      const data = await r.json();
+      const slots = Array.isArray(data.slots) ? data.slots : [];
+
+      timeSel.innerHTML = '<option value="">Select a time</option>';
+      if(slots.length === 0){
+        const o = document.createElement('option');
+        o.value = ""; o.textContent = "No times available";
+        timeSel.appendChild(o);
+        return;
+      }
+      slots.forEach(iso=>{
+        const d = new Date(iso);
+        const label = d.toLocaleTimeString([], {hour:'numeric', minute:'2-digit'});
+        const o = document.createElement('option');
+        o.value = iso; o.textContent = label;
+        timeSel.appendChild(o);
+      });
+    }catch(e){
+      timeSel.innerHTML = '<option value="">Error loading times</option>';
+    }
+  }
+
+  // If service changes and a date is selected, reload times
+  if(svcSel){
+    svcSel.addEventListener('change', ()=>{
+      if(selectedDateISO) loadTimesFor(selectedDateISO);
+    });
+  }
+
+  // ==== BOOK ====
+  if(reqBtn){
+    reqBtn.addEventListener('click', async ()=>{
+      reqMsg.textContent = "";
+      const isoStart = timeSel.value;
+      const service  = svcSel.value;
+      const email    = (emailEl.value || "").trim();
+
+      if(!selectedDateISO){ reqMsg.textContent = "Please pick a date."; return; }
+      if(!isoStart){ reqMsg.textContent = "Please pick a time."; return; }
+      if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ reqMsg.textContent = "Enter a valid email."; return; }
+
+      reqBtn.disabled = true; reqBtn.textContent = "Booking…";
+
+      try{
+        const r = await fetch('/api/book',{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ isoStart, service, email })
+        });
+        const data = await r.json();
+        if(data && data.ok){
+          reqMsg.style.color = "#16a34a";
+          reqMsg.textContent = "Booked! A confirmation email was sent to you.";
+          // Optionally: clear selection
+          // timeSel.selectedIndex = 0; emailEl.value = "";
+        }else{
+          reqMsg.style.color = "#ef4444";
+          reqMsg.textContent = "Booking failed. Please try again.";
+        }
+      }catch(e){
+        reqMsg.style.color = "#ef4444";
+        reqMsg.textContent = "Network error. Please try again.";
+      }finally{
+        reqBtn.disabled = false; reqBtn.textContent = "Request Booking";
+      }
+    });
+  }
+
+  // Initial render
+  renderCalendar();
 </script>
-</body>
-</html>
