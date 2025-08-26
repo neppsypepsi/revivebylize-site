@@ -236,6 +236,25 @@
       </label>
     </div>
 
+    <!-- New row: Name + Location choice + Address (for mobile) -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px">
+      <label>Your Name (optional)
+        <input id="clientName" type="text" placeholder="Jane Doe" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px">
+      </label>
+      <label>Location
+        <select id="location" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px">
+          <option value="studio">In-studio (no travel fee)</option>
+          <option value="mobile">Mobile visit (travel fee applies)</option>
+        </select>
+      </label>
+      <label id="addrWrap" style="display:none">Address (for mobile visit)
+        <input id="clientAddress" type="text" placeholder="Street, City" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px">
+      </label>
+    </div>
+    <div id="travelNote" class="small" style="display:none;color:#b45309;margin-top:6px">
+      * Mobile visits include a flat <strong>$15 travel fee</strong>. See <a href="/policies">Policies</a>.
+    </div>
+
     <div style="margin-top:12px">
       <button id="requestBtn" class="btn primary">Request Booking</button>
       <span id="reqMsg" class="small" style="margin-left:10px;color:#6b7280"></span>
@@ -343,6 +362,22 @@ const svcSel  = document.getElementById('service');
 const reqBtn  = document.getElementById('requestBtn');
 const reqMsg  = document.getElementById('reqMsg');
 const emailEl = document.getElementById('clientEmail');
+const nameEl = document.getElementById('clientName');
+const locSel = document.getElementById('location');
+const addrWrap = document.getElementById('addrWrap');
+const addrEl = document.getElementById('clientAddress');
+const travelNote = document.getElementById('travelNote');
+
+if (locSel) {
+  const syncLocUI = ()=>{
+    const mobile = locSel.value === 'mobile';
+    if (addrWrap) addrWrap.style.display = mobile ? '' : 'none';
+    if (travelNote) travelNote.style.display = mobile ? '' : 'none';
+  };
+  locSel.addEventListener('change', syncLocUI);
+  // initialize on load
+  syncLocUI();
+}
 
 if (calEl && timeSel && svcSel && reqBtn && reqMsg) {
   let view = new Date();
@@ -439,6 +474,13 @@ if (calEl && timeSel && svcSel && reqBtn && reqMsg) {
     const isoStart = timeSel.value;
     const service  = svcSel.value;
     const email    = (emailEl.value || "").trim();
+    const name     = (nameEl && nameEl.value || "").trim();
+    const locationChoice = (locSel && locSel.value) || "studio";
+    const clientAddress  = (addrEl && addrEl.value || "").trim();
+    if (locationChoice === 'mobile' && !clientAddress){
+      reqMsg.textContent = "Please enter an address for a mobile visit.";
+      return;
+    }
 
     if (!selectedDateISO){ reqMsg.textContent = "Please pick a date."; return; }
     if (!isoStart){ reqMsg.textContent = "Please pick a time."; return; }
@@ -449,7 +491,7 @@ if (calEl && timeSel && svcSel && reqBtn && reqMsg) {
     try{
       const r = await fetch('/api/book',{
         method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ isoStart, service, email })
+        body: JSON.stringify({ isoStart, service, name, email, location: locationChoice, address: clientAddress })
       });
       const data = await r.json();
       if (data && data.ok){
@@ -473,11 +515,7 @@ if (calEl && timeSel && svcSel && reqBtn && reqMsg) {
 } else {
   console.warn('Booking elements not found; calendar not initialized.');
 }
-</script>
-</body>
-</html>
-
-// Fade-in animation for sections
+// Fade-in animation on scroll
 function fadeInOnScroll() {
   const fadeEls = document.querySelectorAll('.fadein, .testimonials .card');
   const windowHeight = window.innerHeight;
@@ -485,12 +523,13 @@ function fadeInOnScroll() {
     const rect = el.getBoundingClientRect();
     if (rect.top < windowHeight - 60) {
       el.style.opacity = 1;
-      // Remove animation if already played
       el.style.animationPlayState = 'running';
     }
   });
 }
 window.addEventListener('scroll', fadeInOnScroll);
-window.addEventListener('DOMContentLoaded', () => {
-  fadeInOnScroll();
-});
+window.addEventListener('DOMContentLoaded', fadeInOnScroll);
+</script>
+</body>
+</html>
+
