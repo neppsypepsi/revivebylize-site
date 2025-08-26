@@ -1,5 +1,6 @@
 import { google } from 'googleapis';
 import nodemailer from 'nodemailer';
+import crypto from 'node:crypto';
 
 // ---- Google Calendar auth (service account) ----
 const auth = new google.auth.JWT(
@@ -86,3 +87,74 @@ export default async function handler(req, res) {
         guestsCanInviteOthers: false,
         guestsCanModify: false,
         guestsCanSeeOtherGuests: false,
+    });
+
+    // ---- Self-cancel link (valid for 7 days) ----
+    const ts = Date.now().toString();
+    const base = process.env.PUBLIC_BASE_URL || '';
+    const secret = process.env.SELF_CANCEL_SECRET || '';
+    const evId = ev?.data?.id;
+    const payload = evId ? `${evId}.${ts}` : '';
+    const sig = (secret && payload) ? crypto.createHmac('sha256', secret).update(payload).digest('hex') : '';
+    const selfCancelURL = (base && sig && evId)
+      ? `${base}/api/self-cancel?id=${encodeURIComponent(evId)}&ts=${ts}&sig=${sig}`
+      : '';
+
+    // ---- Email: client + owner confirmations ----
+    const prettyDate = new Intl.DateTimeFormat('en-US', {
+      weekday: 'long', month: 'short', day: 'numeric', year: 'numeric',
+      hour: 'numeric', minute: '2-digit', timeZone: TZ,
+    }).format(start);
+
+    const locEmailText = isMobile
+      ? `Location: Mobile visit\nAddress: ${address || '(not provided)'}\nTravel fee: $15 flat\n`
+      : `Location: In-studio (no travel fee)\n`;
+
+    // Client email
+    try {
+      await sendMail({
+        to: email,
+        subject: 'Your booking is confirmed — Revive by Lize',
+        text:
+          `Hi ${name || 'there'},\n\n` +
+          `Thanks for booking *${service}* with Revive by Lize.\n` +
+          `🗓  When: ${prettyDate} (${TZ})\n` +
+          locEmailText +
+          (selfCancelURL ? `Cancel link (valid 7 days): ${selfCancelURL}\n\n` : '') +
+          `If you need to reschedule, please reply at least 24 hours in advance.\n\n` +
+          `— Revive by Lize`,
+      });
+      console.log('BOOK: client email sent to', email);
+    } catch (mailErr) {
+      console.error('BOOK: client email failed', mailErr?.message || mailErr);
+    }
+
+    // Owner email
+    try {
+      const owner = process.env.OWNER_EMAIL || process.env.FROM_EMAIL || process.env.SMTP_USER;
+      if (owner) {
+        await sendMail({
+          to: owner,
+          subject: 'New booking — Revive by Lize',
+          text:
+            `New booking received.\n\n` +
+            `Service: ${service}\n` +
+            `When: ${prettyDate} (${TZ})\n` +
+            `Client email: ${email}\n` +
+            `Location: ${isMobile ? 'Mobile' : 'In-studio'}\n` +
+            (isMobile ? `Address: ${address || '(not provided)'}\nTravel fee: $15\n` : ``) +
+            (evId ? `Event ID: ${evId}\n` : ``) +
+            (selfCancelURL ? `Client cancel link: ${selfCancelURL}\n` : ``),
+        });
+        console.log('BOOK: owner email sent to', owner);
+      }
+    } catch (mailErr) {
+      console.error('BOOK: owner email failed', mailErr?.message || mailErr);
+    }
+
+    res.json({ ok: true, id: ev.data?.id, cancelLink: !!selfCancelURL });
+  } catch (e) {
+    console.error('BOOK: handler error', e);
+    res.status(500).json({ error: 'internal error' });
+  }
+}
