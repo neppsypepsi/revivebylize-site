@@ -1,1 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Admin — Revive by Lize</title>
+<style>
+  :root{--ink:#111827;--muted:#6b7280;--bg:#f7f7f8;--card:#ffffff;--line:#e5e7eb;--accent:#1f9d7a;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial;color:var(--ink);background:var(--bg);}
+  header{background:#fff;border-bottom:1px solid var(--line);padding:14px 18px;font-weight:700}
+  .wrap{max-width:1000px;margin:24px auto;padding:0 16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  input[type="password"], input[type="text"]{padding:10px;border:1px solid var(--line);border-radius:8px}
+  input#token{min-width:320px}
+  button{padding:10px 14px;border:0;background:var(--accent);color:#fff;border-radius:8px;cursor:pointer}
+  button.secondary{background:#e9eef1;color:#111}
+  button.warn{background:#ef4444}
+  button:disabled{opacity:.6;cursor:not-allowed}
+  .muted{color:var(--muted)}
+  table{width:100%;border-collapse:collapse;margin-top:12px}
+  th,td{padding:10px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:top}
+  th{text-align:left;color:#374151}
+  .id{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#475569;font-size:12px}
+  .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;border:1px solid var(--line);color:#374151}
+  .pill.ok{background:#ecfdf5;border-color:#a7f3d0}
+  .pill.done{background:#f3f4f6}
+  .actions{display:flex;gap:6px}
+</style>
+</head>
+<body>
+<header>Admin — Revive by Lize</header>
+<div class="wrap">
+  <div class="card">
+    <div class="row">
+      <input id="token" type="password" placeholder="Admin token (ADMIN_TOKEN)" />
+      <button id="load">Load bookings</button>
+      <span id="msg" class="muted"></span>
+    </div>
 
+    <table id="tbl">
+      <thead>
+        <tr>
+          <th>When</th>
+          <th>Service</th>
+          <th>Client Email</th>
+          <th>Location</th>
+          <th>Address</th>
+          <th>Fee</th>
+          <th>Event ID</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const tbody = $('#tbl tbody');
+const msg = $('#msg');
+
+function fmt(iso){
+  if (!iso) return '';
+  try { return new Date(iso).toLocaleString(); } catch { return iso; }
+}
+
+// fallback parser if API description contains "Contact: email"
+function emailFrom(desc=''){
+  const m = desc.match(/Contact:\s*([^\s]+@[^\s]+)/i);
+  return m ? m[1] : '';
+}
+
+async function fetchEvents(){
+  msg.textContent = 'Loading…';
+  tbody.innerHTML = '';
+  const token = $('#token').value.trim();
+  if (!token){ msg.textContent = 'Enter admin token first.'; return; }
+  try{
+    const r = await fetch('/api/events', { headers:{ Authorization:'Bearer '+token }});
+    const data = await r.json();
+    if (!r.ok || !data.ok){ msg.textContent = 'Failed: ' + (data.error || r.status); return; }
+    renderRows(data.events || []);
+    msg.textContent = data.events.length ? '' : 'No upcoming bookings.';
+  }catch(e){
+    msg.textContent = 'Error loading events';
+  }
+}
+
+function renderRows(events){
+  tbody.innerHTML = '';
+  events.forEach(ev => {
+    const tr = document.createElement('tr');
+    const client = ev.extEmail || emailFrom(ev.description) || '';
+    const fee = (ev.travelFee && ev.travelFee !== '0') ? `$${ev.travelFee}` : '—';
+    const locLabel = ev.location === 'mobile' ? 'Mobile' : 'In‑studio';
+    const completed = (ev.completed === 'true');
+    tr.innerHTML = `
+      <td>${fmt(ev.start)}</td>
+      <td>${ev.summary || ''}</td>
+      <td>${client || ''}</td>
+      <td><span class="pill ${locLabel==='Mobile'?'ok':''}">${locLabel}</span></td>
+      <td>${ev.address || ''}</td>
+      <td>${fee}</td>
+      <td class="id">${ev.id}</td>
+      <td class="actions">
+        <button class="secondary" data-action="copy" data-id="${ev.id}">Copy ID</button>
+        <button class="warn" data-action="cancel" data-id="${ev.id}">Cancel</button>
+        <button data-action="complete" data-id="${ev.id}" ${completed?'disabled':''}>${completed?'Completed':'Complete'}</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+tbody.addEventListener('click', async (e)=>{
+  const btn = e.target.closest('button[data-action]');
+  if (!btn) return;
+  const id = btn.getAttribute('data-id');
+  const action = btn.getAttribute('data-action');
+  const token = $('#token').value.trim();
+  if (!token){ alert('Enter admin token first.'); return; }
+
+  if (action === 'copy'){
+    await navigator.clipboard.writeText(id);
+    btn.textContent = 'Copied';
+    setTimeout(()=>btn.textContent='Copy ID', 1200);
+    return;
+  }
+
+  if (action === 'cancel'){
+    if (!confirm('Cancel this booking? This removes it from the calendar and emails the client.')) return;
+    btn.disabled = true; btn.textContent = 'Cancelling…';
+    try{
+      const r = await fetch('/api/cancel', {
+        method:'POST',
+        headers:{ 'Content-Type':'application/json', Authorization:'Bearer '+token },
+        body: JSON.stringify({ id })
+      });
+      const data = await r.json();
+      if (r.ok && data.ok){
+        btn.textContent = 'Canceled';
+        // remove row
+        const tr = btn.closest('tr'); tr.parentNode.removeChild(tr);
+      } else {
+        btn.disabled = false; btn.textContent = 'Cancel';
+        alert('Cancel failed: ' + (data.error || r.status));
+      }
+    }catch(err){
+      btn.disabled = false; btn.textContent = 'Cancel';
+      alert('Network error');
+    }
+    return;
+  }
+
+  if (action === 'complete'){
+    btn.disabled = true; btn.textContent = 'Completing…';
+    try{
+      const r = await fetch('/api/complete', {
+        method:'POST',
+        headers:{ 'Content-Type':'application/json', Authorization:'Bearer '+token },
+        body: JSON.stringify({ id })
+      });
+      const data = await r.json();
+      if (r.ok && data.ok){
+        btn.textContent = 'Completed';
+      } else {
+        btn.disabled = false; btn.textContent = 'Complete';
+        alert('Complete failed: ' + (data.error || r.status));
+      }
+    }catch(err){
+      btn.disabled = false; btn.textContent = 'Complete';
+      alert('Network error');
+    }
+    return;
+  }
+});
+
+document.getElementById('load').addEventListener('click', fetchEvents);
+</script>
+</body>
+</html>
