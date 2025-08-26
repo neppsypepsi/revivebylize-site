@@ -31,16 +31,13 @@ async function sendMail({ to, subject, text, html }) {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
     },
+    logger: !!process.env.SMTP_DEBUG,
+    debug: !!process.env.SMTP_DEBUG,
   });
 
   const from = process.env.FROM_EMAIL || process.env.SMTP_USER;
-  await transporter.sendMail({
-    from,
-    to,
-    subject,
-    text,
-    html,
-  });
+  const info = await transporter.sendMail({ from, to, subject, text, html });
+  return info;
 }
 
 export default async function handler(req, res) {
@@ -72,6 +69,13 @@ export default async function handler(req, res) {
       },
     });
 
+    console.log('BOOK: event created', {
+      id: ev?.data?.id,
+      start: start.toISOString(),
+      service,
+      email,
+    });
+
     // Fire-and-forget confirmation emails (don’t block the response)
     (async () => {
       try {
@@ -86,6 +90,7 @@ export default async function handler(req, res) {
         });
 
         // To the client
+        console.log('BOOK: sending client email to', email);
         await sendMail({
           to: email,
           subject: `Your booking is confirmed — ${service}`,
@@ -97,10 +102,12 @@ export default async function handler(req, res) {
             `If you need to reschedule, please reply to this email at least 24 hours in advance.\n\n` +
             `— Revive by Lize`,
         });
+        console.log('BOOK: client email sent');
 
         // To the owner
-        const owner = process.env.OWNER_EMAIL || process.env.FROM_EMAIL;
+        const owner = process.env.OWNER_EMAIL || process.env.FROM_EMAIL || process.env.SMTP_USER;
         if (owner) {
+          console.log('BOOK: sending owner email to', owner);
           await sendMail({
             to: owner,
             subject: `New booking — ${service} (${prettyDate})`,
@@ -110,17 +117,29 @@ export default async function handler(req, res) {
               `When: ${prettyDate} (${TZ})\n` +
               `Client: ${name || 'Guest'}\n` +
               `Email: ${email}\n\n` +
-              `Google Event ID: ${ev.data.id}\n`,
+              `Google Event ID: ${ev?.data?.id}\n`,
           });
+          console.log('BOOK: owner email sent');
+        } else {
+          console.log('BOOK: owner email skipped (no OWNER_EMAIL/FROM_EMAIL set)');
         }
       } catch (err) {
-        console.error('Email send failed:', err);
+        console.error('BOOK: Email send failed', {
+          message: err?.message,
+          code: err?.code,
+          responseCode: err?.responseCode,
+          stack: err?.stack,
+        });
       }
     })();
 
     res.json({ ok: true, id: ev.data.id });
   } catch (e) {
-    console.error(e);
+    console.error('BOOK: handler failed', {
+      message: e?.message,
+      code: e?.code,
+      response: e?.response?.data || e?.response,
+    });
     res.status(500).json({ error: 'booking failed' });
   }
 }
