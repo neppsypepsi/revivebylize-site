@@ -104,8 +104,8 @@
   .btn{display:inline-block;text-decoration:none;font-weight:600;padding:12px 18px;border-radius:999px}
   .btn.primary{background:var(--accent);color:#fff}
   .btn.secondary{background:#fff;color:var(--ink);border:1px solid #e5e7eb}
-  .hero-visual{border-radius:18px;min-height:320px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.08);background:#ddd}
-  .hero-visual img{width:100%;height:100%;object-fit:cover}
+  .hero-visual{position:relative;border-radius:18px;min-height:320px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.08);background:#000}
+  .hero-visual video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
   /* Services */
   .services{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:16px}
@@ -119,6 +119,7 @@
   .about{display:grid;grid-template-columns:1fr 1.15fr;gap:24px;margin-top:18px}
   @media(max-width:980px){.about{grid-template-columns:1fr}}
   .about-visual{border-radius:14px;min-height:280px;overflow:hidden;background:#f1f5f9}
+  .about-visual img{width:100%;height:100%;object-fit:cover;display:block}
 
   /* Booking calendar */
   .calendar{display:grid;gap:12px}
@@ -167,7 +168,9 @@
       <a class="btn secondary" href="#services">See Services</a>
     </div>
     <div class="hero-visual">
-      <!-- Optional hero image: <img src="hero.jpg" alt="Massage ambiance"> -->
+      <video class="hero-video" autoplay muted loop playsinline preload="metadata">
+        <source src="assets/videos/massage-hero.mp4" type="video/mp4" />
+      </video>
     </div>
   </div>
 </section>
@@ -203,11 +206,11 @@
   <h2>About Lize</h2>
   <div class="about">
     <div class="about-visual">
-      <!-- Add your mom's photo later: <img src="about.jpg" alt="About Lize"> -->
+      <img src="assets/images/about/mom.jpg" alt="Lize — licensed massage therapist in San Jose" />
     </div>
     <div>
-      <p>Lize, a CNA with years of caregiving experience, is now following her passion for massage therapy. She blends skill and empathy to provide safe, restorative sessions tailored to each client’s needs.</p>
-      <p>Her goal is simple: help you feel revived — whether recovering from surgery, managing daily stress, or seeking radiant relaxation.</p>
+      <p>Lize is a licensed massage therapist serving the South Bay. She blends Swedish, deep tissue, and lymphatic-inspired techniques to provide safe, restorative sessions tailored to each client’s needs.</p>
+      <p>Her goal is simple: help you feel revived — whether recovering, managing daily stress, or seeking radiant relaxation.</p>
     </div>
   </div>
 </section>
