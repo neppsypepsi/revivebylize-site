@@ -85,6 +85,7 @@ function mergeIntervals(intervals) {
 export default async function handler(req, res) {
   try {
     const { date, service } = req.query;
+    const debugMode = req.query.debug === '1';
     if (!date) return res.status(400).json({ error: 'date required' });
 
     const serviceMin = DUR[service] || 60;
@@ -110,6 +111,22 @@ export default async function handler(req, res) {
     });
 
     const items = resp.data.items || [];
+    const debug = debugMode ? {
+      date,
+      tz: TZ,
+      service,
+      serviceMin,
+      hoursWindowMins: [startMin, endMin],
+      eventsCount: items.length,
+      sampleEvents: items.slice(0, 5).map(e => ({
+        id: e.id,
+        summary: e.summary,
+        transparency: e.transparency || 'opaque',
+        allDay: !!(e.start?.date && e.end?.date),
+        start: e.start?.dateTime || e.start?.date,
+        end: e.end?.dateTime || e.end?.date,
+      })),
+    } : null;
 
     // Build the business-hours window in ms
     const windowStart = dayStart.getTime() + startMin * 60000;
@@ -163,7 +180,19 @@ export default async function handler(req, res) {
       }
     }
 
-    res.json({ slots: out });
+    if (debugMode) {
+      return res.json({
+        slots: out,
+        debug: {
+          ...debug,
+          windowStartISO: new Date(windowStart).toISOString(),
+          windowEndISO: new Date(windowEnd).toISOString(),
+          busyIntervals: merged.map(([s,e]) => [new Date(s).toISOString(), new Date(e).toISOString()]),
+          freeIntervals: free.map(([s,e]) => [new Date(s).toISOString(), new Date(e).toISOString()]),
+        }
+      });
+    }
+    return res.json({ slots: out });
   } catch (e) {
     console.error('availability error', e?.message || e);
     res.status(500).json({ error: 'availability failed' });
