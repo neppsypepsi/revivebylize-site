@@ -65,7 +65,9 @@ export default async function handler(req, res) {
         status: 'confirmed',
         extendedProperties: {
           private: {
-            email, service,
+            source: 'revive-site',
+            email,
+            service,
             location: isMobile ? 'mobile' : 'studio',
             address: isMobile ? (address || '') : '',
             travelFee: isMobile ? '15' : '0',
