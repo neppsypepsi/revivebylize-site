@@ -83,6 +83,7 @@ function mergeIntervals(intervals) {
 }
 
 export default async function handler(req, res) {
+  res.setHeader('Content-Type', 'application/json');
   try {
     const { date, service } = req.query;
     const debugMode = req.query.debug === '1';
@@ -194,7 +195,20 @@ export default async function handler(req, res) {
     }
     return res.json({ slots: out });
   } catch (e) {
-    console.error('availability error', e?.message || e);
-    res.status(500).json({ error: 'availability failed' });
+    const isDebug = req?.query?.debug === '1';
+    console.error('availability error', e?.stack || e?.message || e);
+    if (isDebug) {
+      return res.status(200).json({
+        error: 'availability failed',
+        message: e?.message || String(e),
+        stack: e?.stack || null,
+        env: {
+          hasCalendarId: !!process.env.CALENDAR_ID,
+          hasClientEmail: !!process.env.GOOGLE_CLIENT_EMAIL,
+          hasPrivateKey: !!process.env.GOOGLE_PRIVATE_KEY
+        }
+      });
+    }
+    return res.status(500).json({ error: 'availability failed' });
   }
 }
