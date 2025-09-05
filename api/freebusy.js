@@ -9,15 +9,17 @@ const auth = new google.auth.JWT(
 const calendar = google.calendar({ version: 'v3', auth });
 const TZ = process.env.TIMEZONE || 'America/Los_Angeles';
 
-/** Business hours per weekday [startMin, endMin] — Sun..Sat */
+/** Business hours per weekday [startMin, endMin] — Sun..Sat
+ *  Calendar-only mode: open 24h; Busy events fully control availability.
+ */
 const HOURS = {
-  0: [12 * 60, 18 * 60], // Sun 12–6p
-  1: [17 * 60, 21 * 60], // Mon 5–9p
-  2: [17 * 60, 21 * 60], // Tue 5–9p
-  3: [0, 0],             // Wed closed
-  4: [17 * 60, 21 * 60], // Thu 5–9p
-  5: [0, 0],             // Fri closed
-  6: [10 * 60, 16 * 60], // Sat 10a–4p
+  0: [0, 24 * 60], // Sun: 24h
+  1: [0, 24 * 60], // Mon: 24h
+  2: [0, 24 * 60], // Tue: 24h
+  3: [0, 24 * 60], // Wed: 24h
+  4: [0, 24 * 60], // Thu: 24h
+  5: [0, 24 * 60], // Fri: 24h
+  6: [0, 24 * 60], // Sat: 24h
 };
 
 const DUR = {
