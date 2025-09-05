@@ -21,15 +21,34 @@ export default async function handler(req, res) {
   const debugMode = req.query?.debug === '1';
   try {
     const now = new Date();
-    const result = await calendar.events.list({
+    // Limit the admin view to the next 90 days so we don't drown in recurring/personal events
+    const timeMax = new Date(now);
+    timeMax.setDate(timeMax.getDate() + 90);
+    let result = await calendar.events.list({
       calendarId: process.env.CALENDAR_ID,
       timeMin: now.toISOString(),
+      timeMax: timeMax.toISOString(),
       singleEvents: true,
       orderBy: 'startTime',
-      maxResults: 50,
+      maxResults: 250,
     });
 
-    const items = result.data.items || [];
+    let items = result.data.items || [];
+    let pageToken = result.data.nextPageToken;
+
+    while (pageToken) {
+      result = await calendar.events.list({
+        calendarId: process.env.CALENDAR_ID,
+        timeMin: now.toISOString(),
+        timeMax: timeMax.toISOString(),
+        singleEvents: true,
+        orderBy: 'startTime',
+        maxResults: 250,
+        pageToken,
+      });
+      items = items.concat(result.data.items || []);
+      pageToken = result.data.nextPageToken;
+    }
 
     // Only include events created by the website booking flow unless ?all=1 is passed.
     // Broader matching: explicit marker, private email, service string, summary (em dash OR hyphen), or description client/contact.
