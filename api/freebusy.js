@@ -194,6 +194,7 @@ export default async function handler(req, res) {
     if (debugMode) {
       return res.json({
         slots: out,
+        fullDayBlocked: out.length === 0,
         debug: {
           ...debug,
           windowStartISO: new Date(windowStart).toISOString(),
@@ -203,7 +204,7 @@ export default async function handler(req, res) {
         }
       });
     }
-    return res.json({ slots: out });
+    return res.json({ slots: out, fullDayBlocked: out.length === 0 });
   } catch (e) {
     const isDebug = req?.query?.debug === '1';
     console.error('availability error', e?.stack || e?.message || e);
