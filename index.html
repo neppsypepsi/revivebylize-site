@@ -372,6 +372,11 @@ const addrWrap = document.getElementById('addrWrap');
 const addrEl = document.getElementById('clientAddress');
 const travelNote = document.getElementById('travelNote');
 
+const TZ = 'America/Los_Angeles';
+function fmtPT(iso) {
+  return new Date(iso).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', timeZone: TZ });
+}
+
 if (locSel) {
   const syncLocUI = ()=>{
     const mobile = locSel.value === 'mobile';
@@ -424,6 +429,7 @@ if (calEl && timeSel && svcSel && reqBtn && reqMsg) {
 
       const el = document.createElement('div');
       el.className = "day " + (future ? "ok" : "no");
+      if (future) { el.dataset.date = ymd(date); }
       el.textContent = d;
 
       if (future){
@@ -431,7 +437,7 @@ if (calEl && timeSel && svcSel && reqBtn && reqMsg) {
           [...grid.querySelectorAll('.day')].forEach(x=>x.classList.remove('selected'));
           el.classList.add('selected');
           selectedDateISO = ymd(date);
-          await loadTimesFor(selectedDateISO);
+          await loadTimesFor(selectedDateISO, el);
         });
       } else {
         el.style.cursor = "not-allowed";
@@ -443,9 +449,31 @@ if (calEl && timeSel && svcSel && reqBtn && reqMsg) {
     calEl.appendChild(grid);
     document.getElementById('prev').onclick = ()=>{ view.setMonth(view.getMonth()-1); renderCalendar(); };
     document.getElementById('next').onclick = ()=>{ view.setMonth(view.getMonth()+1); renderCalendar(); };
+
+    // Color each future day based on API (full-day availability)
+    (async function markMonthAvailability(){
+      const cells = grid.querySelectorAll('.day[data-date]');
+      for (const cell of cells) {
+        const dISO = cell.dataset.date;
+        try{
+          const url = `/api/freebusy?date=${encodeURIComponent(dISO)}&service=${encodeURIComponent(svcSel.value)}`;
+          const resp = await fetch(url);
+          const data = await resp.json();
+          cell.classList.remove('ok', 'no');
+          if (data.fullDayBlocked || !Array.isArray(data.slots) || data.slots.length === 0) {
+            cell.classList.add('no');
+          } else {
+            cell.classList.add('ok');
+          }
+        } catch(e) {
+          cell.classList.remove('ok');
+          cell.classList.add('no');
+        }
+      }
+    })();
   }
 
-  async function loadTimesFor(dateISO){
+  async function loadTimesFor(dateISO, dayEl){
     if (!SERVICE_LABELS.includes(svcSel.value)) svcSel.value = SERVICE_LABELS[0];
     timeSel.innerHTML = '<option value="">Loading…</option>';
     try{
@@ -453,7 +481,14 @@ if (calEl && timeSel && svcSel && reqBtn && reqMsg) {
       const r = await fetch(url);
       const data = await r.json();
       const slots = Array.isArray(data.slots) ? data.slots : [];
-
+      if (dayEl) {
+        dayEl.classList.remove('ok', 'no');
+        if (data.fullDayBlocked || slots.length === 0) {
+          dayEl.classList.add('no');
+        } else {
+          dayEl.classList.add('ok');
+        }
+      }
       timeSel.innerHTML = '<option value="">Select a time</option>';
       if (!slots.length){
         const o = document.createElement('option');
@@ -462,7 +497,7 @@ if (calEl && timeSel && svcSel && reqBtn && reqMsg) {
         return;
       }
       slots.forEach(iso=>{
-        const t = new Date(iso).toLocaleTimeString([], {hour:'numeric', minute:'2-digit'});
+        const t = fmtPT(iso);
         const o = document.createElement('option'); o.value = iso; o.textContent = t; timeSel.appendChild(o);
       });
     }catch(err){
@@ -471,7 +506,11 @@ if (calEl && timeSel && svcSel && reqBtn && reqMsg) {
     }
   }
 
-  svcSel.addEventListener('change', ()=>{ if (selectedDateISO) loadTimesFor(selectedDateISO); });
+  svcSel.addEventListener('change', ()=>{
+    if (selectedDateISO) loadTimesFor(selectedDateISO, calEl.querySelector('.day.selected'));
+    // Re-render calendar to recolor days for the new service duration/logic
+    renderCalendar();
+  });
 
   reqBtn.addEventListener('click', async ()=>{
     reqMsg.textContent = "";
