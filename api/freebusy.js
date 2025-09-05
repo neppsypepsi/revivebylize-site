@@ -158,7 +158,7 @@ export default async function handler(req, res) {
         // Ensure this slot still fits entirely within the free window
         if (totalEnd <= fE) {
           const d = new Date(slotStart);
-          out.push({ iso: d.toISOString(), label: d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', timeZone: TZ }) });
+          out.push(d.toISOString()); // keep API as array of ISO strings
         }
       }
     }
