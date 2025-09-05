@@ -28,9 +28,9 @@ const DUR = {
   'Radiance Facial Flow (45 min)': 45,
 };
 
-const PRE = 15;   // minutes buffer before
-const POST = 15;  // minutes buffer after
-const STEP = 15;  // slot granularity
+const PRE = 0;    // minutes buffer before (aligns starts to exact hours)
+const POST = 0;   // minutes buffer after
+const STEP = 120; // slot granularity in minutes (2 hours between starts)
 
 // ---- TZ helpers ----
 function getTzOffsetMinutes(date, tz) {
@@ -84,6 +84,14 @@ function mergeIntervals(intervals) {
   return out;
 }
 
+function alignToNextHourUTC(tMs, tz) {
+  // Align epoch ms 'tMs' to the next local hour in TZ, then return as UTC ms
+  const offsetMin = getTzOffsetMinutes(new Date(tMs), tz);
+  const localMs = tMs + offsetMin * 60000; // convert to local wall-clock ms
+  const alignedLocal = Math.ceil(localMs / 3600000) * 3600000; // next whole hour
+  return alignedLocal - offsetMin * 60000; // back to UTC epoch ms
+}
+
 export default async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json');
   try {
@@ -91,7 +99,7 @@ export default async function handler(req, res) {
     const debugMode = req.query.debug === '1';
     if (!date) return res.status(400).json({ error: 'date required' });
 
-    const serviceMin = DUR[service] || 60;
+    const serviceMin = 120; // force 2-hour sessions for all services
     const need = serviceMin + PRE + POST; // total blocked window around an appt
 
     // Build midnight boundaries in business timezone
@@ -169,17 +177,17 @@ export default async function handler(req, res) {
     const now = Date.now();
     const out = [];
     for (const [fS, fE] of free) {
-      for (let t = fS; t + need * 60000 <= fE; t += STEP * 60000) {
-        if (t < now) continue; // no past slots for today
-        const slotStart = t + PRE * 60000;               // what the client books
-        const slotEnd   = slotStart + serviceMin * 60000; // appointment end
-        const totalEnd  = slotEnd + POST * 60000;
-
-        // Ensure this slot still fits entirely within the free window
-        if (totalEnd <= fE) {
-          const d = new Date(slotStart);
-          out.push(d.toISOString()); // keep API as array of ISO strings
+      // Start at the next whole hour within the free window (in local TZ)
+      let t = alignToNextHourUTC(Math.max(fS, now), TZ);
+      const sessionMin = 120; // 2-hour session length
+      while (t + sessionMin * 60000 <= fE) {
+        const slotStart = t; // PRE=0, starts exactly on the hour
+        const slotEnd   = slotStart + sessionMin * 60000; // 2-hour appointment
+        if (slotStart >= now && slotEnd <= fE) {
+          out.push(new Date(slotStart).toISOString());
         }
+        // Advance by 2 hours between offered starts
+        t += STEP * 60000; // STEP is 120
       }
     }
 
