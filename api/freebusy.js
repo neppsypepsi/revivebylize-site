@@ -30,7 +30,7 @@ const DUR = {
 
 const PRE = 0;    // minutes buffer before (aligns starts to exact hours)
 const POST = 0;   // minutes buffer after
-const STEP = 120; // slot granularity in minutes (2 hours between starts)
+const STEP = 145; // 2 hours 25 minutes between starts
 
 // ---- TZ helpers ----
 function getTzOffsetMinutes(date, tz) {
@@ -179,15 +179,15 @@ export default async function handler(req, res) {
     for (const [fS, fE] of free) {
       // Start at the next whole hour within the free window (in local TZ)
       let t = alignToNextHourUTC(Math.max(fS, now), TZ);
-      const sessionMin = 120; // 2-hour session length
+      const sessionMin = 145; // appointment length is 2h25min
       while (t + sessionMin * 60000 <= fE) {
         const slotStart = t; // PRE=0, starts exactly on the hour
-        const slotEnd   = slotStart + sessionMin * 60000; // 2-hour appointment
+        const slotEnd   = slotStart + sessionMin * 60000; // 2-hour 25-minute appointment
         if (slotStart >= now && slotEnd <= fE) {
           out.push(new Date(slotStart).toISOString());
         }
-        // Advance by 2 hours between offered starts
-        t += STEP * 60000; // STEP is 120
+        // Advance by 2 hours 25 minutes between offered starts
+        t += STEP * 60000; // STEP is 145
       }
     }
 
