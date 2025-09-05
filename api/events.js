@@ -32,14 +32,13 @@ export default async function handler(req, res) {
     const items = result.data.items || [];
 
     // Only include events created by the website booking flow unless ?all=1 is passed.
-    // We detect site bookings by:
-    //  - explicit marker: extendedProperties.private.source === 'revive-site' (new)
-    //  - legacy site events that had a private.service string
-    //  - OR summary contains our brand suffix (belt & suspenders)
+    // Broader matching: explicit marker, private email, service string, summary (em dash OR hyphen), or description client/contact.
     const siteOnly = showAll ? items : items.filter(ev =>
       ev?.extendedProperties?.private?.source === 'revive-site' ||
+      ev?.extendedProperties?.private?.email ||
       typeof ev?.extendedProperties?.private?.service === 'string' ||
-      (typeof ev?.summary === 'string' && ev.summary.includes('— Revive by Lize'))
+      /(?:—|-)\s*Revive by Lize/.test(ev?.summary || '') ||
+      /\b(?:Client|Contact):\s/i.test(ev?.description || '')
     );
 
     const events = siteOnly.map(ev => ({
