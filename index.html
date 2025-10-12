@@ -109,14 +109,18 @@
   .hero-visual::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.35)}
 
   @media (max-width: 640px){
-    /* Slightly shorter hero reduces aggressive vertical crop on tall phones */
-    .hero-visual{height:90svh}
-    /* Bias focus upward if text sits higher in frame */
-    .hero-visual video{object-position:50% 40%}
-  }
-  @media (max-width: 360px){
-    /* As a last resort on extra-small screens, avoid cropping entirely. */
-    .hero-visual video{object-fit:contain;background:#000}
+    /* Use intrinsic sizing on phones to prevent vertical crop */
+    .hero-visual{height:auto;background:#000}
+    .hero-visual video{
+      position:static; /* remove absolute fill */
+      display:block;
+      width:100%;
+      height:auto;
+      max-height:100svh; /* cap to viewport height */
+      object-fit:contain; /* show entire frame; may letterbox */
+      object-position:center center;
+      background:#000;
+    }
   }
 
   /* Intro (slogan + CTAs on dark monotone gradient) */
