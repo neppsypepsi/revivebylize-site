@@ -104,9 +104,20 @@
   .btn{display:inline-block;text-decoration:none;font-weight:600;padding:12px 18px;border-radius:999px}
   .btn.primary{background:var(--accent);color:#fff}
   .btn.secondary{background:#fff;color:var(--ink);border:1px solid #e5e7eb}
-  .hero-visual{position:relative;height:100vh;min-height:520px;border-radius:0;overflow:hidden;box-shadow:none;background:#000}
-  .hero-visual video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .hero-visual{position:relative;height:100svh;min-height:520px;border-radius:0;overflow:hidden;box-shadow:none;background:#000}
+  .hero-visual video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%}
   .hero-visual::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.35)}
+
+  @media (max-width: 640px){
+    /* Slightly shorter hero reduces aggressive vertical crop on tall phones */
+    .hero-visual{height:90svh}
+    /* Bias focus upward if text sits higher in frame */
+    .hero-visual video{object-position:50% 40%}
+  }
+  @media (max-width: 360px){
+    /* As a last resort on extra-small screens, avoid cropping entirely. */
+    .hero-visual video{object-fit:contain;background:#000}
+  }
 
   /* Intro (slogan + CTAs on dark monotone gradient) */
   .intro{background:linear-gradient(135deg,#0f172a,#1f2937);color:#e5e7eb}
