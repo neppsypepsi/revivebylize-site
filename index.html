@@ -110,7 +110,13 @@
 
   @media (max-width: 640px){
     /* Use intrinsic sizing on phones to prevent vertical crop */
-    .hero-visual{height:auto;background:#000}
+    .hero-visual{
+      height:auto;
+      min-height:0;       /* remove desktop min-height that created the big black box */
+      background:#000;
+    }
+    /* Hide the dim overlay on mobile to avoid extra black area */
+    .hero-visual::after{display:none}
     .hero-visual video{
       position:static; /* remove absolute fill */
       display:block;
