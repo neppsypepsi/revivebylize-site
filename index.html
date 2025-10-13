@@ -386,9 +386,12 @@
       </label>
       <label>Service
         <select id="service" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px">
-          <option value="Gentle Recovery Flow (60 min)">$75 — Gentle Recovery Flow (60 min)</option>
-          <option value="Total Body Renewal (60 min)">$70 — Total Body Renewal (60 min)</option>
-          <option value="Radiance Facial Flow (45 min)">$55 — Radiance Facial Flow (45 min)</option>
+          <option value="Tailored to You — Lifestyle by Lize (60–75 min)">$110 — Tailored to You — Lifestyle by Lize (60–75 min)</option>
+          <option value="Lymphatic Flow (60–75 min)">$125 — Lymphatic Flow (60–75 min)</option>
+          <option value="Post‑Procedure Lymphatic Flow (45–60 min)">$145 — Post‑Procedure Lymphatic Flow (45–60 min)</option>
+          <option value="Healthcare Heroes Massage (60–75 min)">$110 — Healthcare Heroes Massage (60–75 min)</option>
+          <option value="Tech Relief Massage (60–75 min)">$110 — Tech Relief Massage (60–75 min)</option>
+          <option value="Health & Longevity Massage (60–75 min)">$110 — Health & Longevity Massage (60–75 min)</option>
         </select>
       </label>
       <label>Contact Email
@@ -480,9 +483,12 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 // ==== Booking: custom calendar + API calls ====
 const SERVICE_LABELS = [
-  "Gentle Recovery Flow (60 min)",
-  "Total Body Renewal (60 min)",
-  "Radiance Facial Flow (45 min)"
+  "Tailored to You — Lifestyle by Lize (60–75 min)",
+  "Lymphatic Flow (60–75 min)",
+  "Post‑Procedure Lymphatic Flow (45–60 min)",
+  "Healthcare Heroes Massage (60–75 min)",
+  "Tech Relief Massage (60–75 min)",
+  "Health & Longevity Massage (60–75 min)"
 ];
 
 const calEl   = document.getElementById('calendar');
@@ -696,11 +702,22 @@ document.querySelectorAll('.view-more').forEach((btn, idx)=>{
 });
 
 // ==== Services tabs/slider ====
+// ==== Services tabs/slider ====
 (function(){
   const tabs = Array.from(document.querySelectorAll('.services-tabs .tab'));
   const panelSignature = document.getElementById('panel-signature');
   const panelRecovery  = document.getElementById('panel-recovery');
   const panels = [panelSignature, panelRecovery];
+
+  function scrollToServices(){
+    const sec = document.getElementById('services');
+    if (sec) sec.scrollIntoView({behavior:'smooth'});
+  }
+  function handleHash(){
+    const h = (location.hash || '').toLowerCase();
+    if (h.includes('services/recovery')) { activate(1); scrollToServices(); }
+    else if (h.includes('services'))      { activate(0); scrollToServices(); }
+  }
 
   function activate(idx){
     tabs.forEach((t,i)=> t.setAttribute('aria-selected', String(i===idx)));
@@ -730,6 +747,17 @@ document.querySelectorAll('.view-more').forEach((btn, idx)=>{
 
   // Deep link: if URL has #services/recovery, open Recovery
   if (location.hash && location.hash.toLowerCase().includes('recovery')) activate(1);
+
+  // respond to future hash changes (e.g., clicking the nav dropdown after load)
+  window.addEventListener('hashchange', handleHash);
+  // make the nav dropdown link open the Recovery panel and scroll
+  document.querySelectorAll('a[href*="#services/recovery"]').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      e.preventDefault();
+      location.hash = '#services/recovery';
+      handleHash();
+    });
+  });
 })();
 
 // Fade-in animation on scroll
