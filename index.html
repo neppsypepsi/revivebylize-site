@@ -103,6 +103,25 @@
   nav a:hover{background:#f3f4f6}
   nav a.cta{background:var(--deep-2);color:#fff;padding:10px 16px}
 
+  /* Mobile nav toggle */
+  .menu-toggle{display:none;position:relative;width:44px;height:36px;border:1px solid #e5e7eb;border-radius:8px;background:#fff;align-items:center;justify-content:center}
+  .menu-toggle .bar{display:block;width:22px;height:2px;background:#1f2937;margin:3px auto;border-radius:2px}
+
+  @media(max-width:768px){
+    .topbar .row{align-items:center}
+    .brand{padding:10px 0}
+    .brand-logo{width:40px;height:40px}
+    nav{display:none;position:absolute;left:0;right:0;top:100%;background:#fff;border-bottom:1px solid #e5e7eb;padding:12px 20px;flex-direction:column;gap:6px}
+    nav.open{display:flex}
+    nav a{padding:12px 10px}
+    .menu-toggle{display:inline-flex}
+    /* dropdown behaves inline on mobile */
+    .dropdown{width:100%}
+    .dropdown-menu{position:static;display:none;margin:0;padding:4px 0;border:none;border-radius:0;box-shadow:none}
+    .dropdown.open .dropdown-menu{display:block}
+    .dropdown-menu .dropdown-link{padding:8px 14px}
+  }
+
   /* Nav dropdown */
   .dropdown{position:relative}
   .drop-trigger{display:inline-block}
@@ -233,7 +252,12 @@
       <img class="brand-logo" src="logo.png" alt="Revive by Lize logo" />
       <div class="brand">Revive by Lize</div>
     </div>
-    <nav>
+    <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+    <nav id="navMenu">
       <div class="dropdown">
         <a href="#services" class="drop-trigger">Services</a>
         <ul class="dropdown-menu">
@@ -705,6 +729,35 @@ document.querySelectorAll('.view-more').forEach((btn, idx)=>{
     btn.textContent = open ? 'View more' : 'View less';
   });
 });
+
+// ==== Mobile menu toggle & dropdown support ====
+(function(){
+  const btn = document.querySelector('.menu-toggle');
+  const nav = document.getElementById('navMenu');
+  if(!btn || !nav) return;
+  btn.addEventListener('click', ()=>{
+    const open = nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(open));
+  });
+  // Close menu when a link is tapped
+  nav.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=>{
+    nav.classList.remove('open');
+    btn.setAttribute('aria-expanded','false');
+  }));
+  // Enable dropdown open on tap for mobile
+  const dd = nav.querySelector('.dropdown');
+  if (dd){
+    const trigger = dd.querySelector('.drop-trigger');
+    if (trigger){
+      trigger.addEventListener('click', (e)=>{
+        if (window.matchMedia('(max-width: 768px)').matches){
+          e.preventDefault();
+          dd.classList.toggle('open');
+        }
+      });
+    }
+  }
+})();
 
 // ==== Services tabs/slider ====
 // ==== Services tabs/slider ====
