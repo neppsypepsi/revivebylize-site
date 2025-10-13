@@ -165,6 +165,18 @@
   .visual img{width:100%;height:100%;object-fit:cover}
   .price{font-weight:700;margin-top:8px}
 
+  /* Services slider (Signature ↔ Recovery & Wellness) */
+  .services-tabs{display:flex;gap:10px;margin-top:12px}
+  .services-tabs .tab{appearance:none;border:1px solid #e5e7eb;background:#fff;color:var(--ink);padding:10px 14px;border-radius:999px;font-weight:600;cursor:pointer}
+  .services-tabs .tab[aria-selected="true"]{background:var(--deep-2);color:#fff;border-color:var(--deep-2)}
+  .services-slider{position:relative;overflow:hidden;margin-top:18px}
+  .services-track{display:flex;transition:transform .5s cubic-bezier(.22,.7,.23,1);will-change:transform;width:200%}
+  .services-panel{width:100%;flex:0 0 100%;padding:2px}
+  .services-panel .services{margin-top:18px}
+  /* smooth height adjustment wrapper */
+  .services-height{transition:height .45s cubic-bezier(.22,.7,.23,1)}
+  @media(max-width:980px){.services-tabs{flex-wrap:wrap}}
+
   /* About */
   .about{display:grid;grid-template-columns:1fr 1.15fr;gap:28px;margin-top:28px}
   @media(max-width:980px){.about{grid-template-columns:1fr}}
@@ -246,38 +258,93 @@
 
 <section id="services" class="container fadein">
   <h2>Services</h2>
-  <div class="services">
-    <div class="card">
-      <div class="visual"><img src="GRF.png" alt="Tailored to You — Lifestyle by Lize"></div>
-      <h3>Tailored to You — Lifestyle by Lize</h3>
-      <div class="price">$110 • 60–75 min</div>
-      <p class="summary">A full‑body deep relaxation experience tailored to you. This isn’t a routine — it’s a humanized session that flows with what your body needs that day.</p>
-      <div class="more" style="display:none">
-        <p>It’s about connection, presence, and restoring your natural rhythm. Each session is uniquely adjusted — sometimes slower, sometimes more stimulating — dedicated just for you.</p>
-      </div>
-      <button class="btn secondary view-more" data-target="0">View more</button>
-    </div>
 
-    <div class="card">
-      <div class="visual"><img src="TBR.png" alt="Lymphatic Flow"></div>
-      <h3>Lymphatic Flow</h3>
-      <div class="price">$125 • 60–75 min</div>
-      <p class="summary">A gentle, rhythmic full‑body massage that encourages natural lymph movement — supporting detoxification, balance, and overall wellness.</p>
-      <div class="more" style="display:none">
-        <p>Combining traditional manual drainage principles with a humanized approach focused on comfort and awareness. Each session stimulates circulation, helps reduce water retention, and restores lightness to the body.</p>
-      </div>
-      <button class="btn secondary view-more" data-target="1">View more</button>
-    </div>
+  <!-- Tabs -->
+  <div class="services-tabs" role="tablist" aria-label="Service categories">
+    <button class="tab" role="tab" aria-selected="true" aria-controls="panel-signature" id="tab-signature">Signature</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="panel-recovery" id="tab-recovery">Recovery &amp; Wellness</button>
+  </div>
 
-    <div class="card">
-      <div class="visual"><img src="RFF.png" alt="Post‑Procedure Lymphatic Flow"></div>
-      <h3>Post‑Procedure Lymphatic Flow</h3>
-      <div class="price">$145 • 45–60 min</div>
-      <p class="summary">Specialized recovery care designed to support the body after surgery or cosmetic procedures — with an ultra‑gentle, restorative flow.</p>
-      <div class="more" style="display:none">
-        <p>The technique adapts for healing tissues to help reduce swelling, prevent fibrosis, and improve comfort during recovery. Available in‑studio or in‑home, always with humanized care that follows your healing rhythm.</p>
+  <!-- Slider -->
+  <div class="services-slider">
+    <div class="services-height">
+      <div class="services-track" id="servicesTrack" style="transform: translateX(0%)">
+        <!-- Panel A: Signature -->
+        <div class="services-panel" id="panel-signature" role="tabpanel" aria-labelledby="tab-signature">
+          <div class="services">
+            <div class="card">
+              <div class="visual"><img src="GRF.png" alt="Tailored to You — Lifestyle by Lize"></div>
+              <h3>Tailored to You — Lifestyle by Lize</h3>
+              <div class="price">$110 • 60–75 min</div>
+              <p class="summary">A full‑body deep relaxation experience tailored to you. This isn’t a routine — it’s a humanized session that flows with what your body needs that day.</p>
+              <div class="more" style="display:none">
+                <p>It’s about connection, presence, and restoring your natural rhythm. Each session is uniquely adjusted — sometimes slower, sometimes more stimulating — dedicated just for you.</p>
+              </div>
+              <button class="btn secondary view-more">View more</button>
+            </div>
+
+            <div class="card">
+              <div class="visual"><img src="TBR.png" alt="Lymphatic Flow"></div>
+              <h3>Lymphatic Flow</h3>
+              <div class="price">$125 • 60–75 min</div>
+              <p class="summary">A gentle, rhythmic full‑body massage that encourages natural lymph movement — supporting detoxification, balance, and overall wellness.</p>
+              <div class="more" style="display:none">
+                <p>Combining traditional manual drainage principles with a humanized approach focused on comfort and awareness. Each session stimulates circulation, helps reduce water retention, and restores lightness to the body.</p>
+              </div>
+              <button class="btn secondary view-more">View more</button>
+            </div>
+
+            <div class="card">
+              <div class="visual"><img src="RFF.png" alt="Post‑Procedure Lymphatic Flow"></div>
+              <h3>Post‑Procedure Lymphatic Flow</h3>
+              <div class="price">$145 • 45–60 min</div>
+              <p class="summary">Specialized recovery care designed to support the body after surgery or cosmetic procedures — with an ultra‑gentle, restorative flow.</p>
+              <div class="more" style="display:none">
+                <p>The technique adapts for healing tissues to help reduce swelling, prevent fibrosis, and improve comfort during recovery. Available in‑studio or in‑home, always with humanized care that follows your healing rhythm.</p>
+              </div>
+              <button class="btn secondary view-more">View more</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel B: Recovery & Wellness -->
+        <div class="services-panel" id="panel-recovery" role="tabpanel" aria-labelledby="tab-recovery" hidden>
+          <div class="services">
+            <div class="card">
+              <div class="visual"><img src="assets/images/services/healthcare.jpg" alt="Healthcare Heroes Massage (placeholder)"></div>
+              <h3>Healthcare Heroes Massage</h3>
+              <div class="price">$110 • 60–75 min</div>
+              <p class="summary">Created for those who give everything to care for others — a restorative full‑body session focused on tired feet, heavy legs, lower back, shoulders, and neck.</p>
+              <div class="more" style="display:none">
+                <p>Warm magnesium infusion melts away tension, supports circulation, and helps your body recover from long shifts with care and intention.</p>
+              </div>
+              <button class="btn secondary view-more">View more</button>
+            </div>
+
+            <div class="card">
+              <div class="visual"><img src="assets/images/services/tech.jpg" alt="Tech Relief Massage (placeholder)"></div>
+              <h3>Tech Relief Massage</h3>
+              <div class="price">$110 • 60–75 min</div>
+              <p class="summary">Designed for Bay Area professionals who spend long hours seated — targeting neck, shoulders, back, and hips to relieve desk‑life tension.</p>
+              <div class="more" style="display:none">
+                <p>A peppermint and cinnamon infusion stimulates circulation, awakens the senses, and supports mobility — helping chronic tightness release over time.</p>
+              </div>
+              <button class="btn secondary view-more">View more</button>
+            </div>
+
+            <div class="card">
+              <div class="visual"><img src="assets/images/services/longevity.jpg" alt="Health &amp; Longevity Massage (placeholder)"></div>
+              <h3>Health &amp; Longevity Massage</h3>
+              <div class="price">$110 • 60–75 min</div>
+              <p class="summary">Perfect for older adults and loved ones — gentle movements and nurturing touch to support mobility, flexibility, and circulation.</p>
+              <div class="more" style="display:none">
+                <p>Focused on wellness and longevity, this session invites comfort, ease, and a renewed sense of vitality.</p>
+              </div>
+              <button class="btn secondary view-more">View more</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <button class="btn secondary view-more" data-target="2">View more</button>
     </div>
   </div>
 </section>
@@ -620,6 +687,41 @@ document.querySelectorAll('.view-more').forEach((btn, idx)=>{
     btn.textContent = open ? 'View more' : 'View less';
   });
 });
+
+// ==== Services tabs/slider ====
+(function(){
+  const track = document.getElementById('servicesTrack');
+  const tabs = Array.from(document.querySelectorAll('.services-tabs .tab'));
+  const panels = [document.getElementById('panel-signature'), document.getElementById('panel-recovery')];
+  const heightWrap = document.querySelector('.services-height');
+
+  function setHeightTo(el){
+    if (!heightWrap || !el) return;
+    // Temporarily unhide to measure
+    const wasHidden = el.hasAttribute('hidden');
+    if (wasHidden) el.removeAttribute('hidden');
+    requestAnimationFrame(()=>{ heightWrap.style.height = el.scrollHeight + 'px'; if (wasHidden) el.setAttribute('hidden',''); });
+  }
+
+  function activate(idx){
+    tabs.forEach((t,i)=> t.setAttribute('aria-selected', String(i===idx)));
+    panels.forEach((p,i)=> i===idx ? p.removeAttribute('hidden') : p.setAttribute('hidden',''));
+    track.style.transform = idx===0 ? 'translateX(0%)' : 'translateX(-50%)';
+    setHeightTo(panels[idx]);
+  }
+
+  // Initialize height to first panel
+  setHeightTo(panels[0]);
+
+  tabs[0].addEventListener('click', ()=>activate(0));
+  tabs[1].addEventListener('click', ()=>activate(1));
+
+  // keyboard support
+  tabs.forEach((t,i)=> t.addEventListener('keydown', (e)=>{ if(e.key==='ArrowRight') tabs[(i+1)%tabs.length].focus(); if(e.key==='ArrowLeft') tabs[(i-1+tabs.length)%tabs.length].focus(); }));
+
+  // If URL hash indicates recovery, open it
+  if (location.hash && location.hash.toLowerCase().includes('recovery')) activate(1);
+})();
 
 // Fade-in animation on scroll
 function fadeInOnScroll() {
