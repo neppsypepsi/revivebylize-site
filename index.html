@@ -158,29 +158,30 @@
   .intro .btn.secondary:hover{background:rgba(255,255,255,.06)}
 
   /* Services */
-  .services{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:28px}
-  @media(max-width:980px){.hero-inner{grid-template-columns:1fr}.services{grid-template-columns:1fr}}
+  .services{display:grid;grid-template-columns:1fr;gap:22px;margin-top:28px}
+  @media(max-width:980px){.hero-inner{grid-template-columns:1fr}}
   .card h3{margin:0 0 6px;font-size:18px}
-  .visual{height:180px;border-radius:12px;margin-bottom:12px;overflow:hidden;background:#eee}
+  .visual{height:clamp(140px, 20vw, 220px);border-radius:12px;margin-bottom:12px;overflow:hidden;background:#eee}
   .visual img{width:100%;height:100%;object-fit:cover}
   .price{font-weight:700;margin-top:8px}
+  .summary{
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
 
-  /* Services slider (Signature ↔ Recovery & Wellness) */
+  /* Services tabs — simple show/hide, no slider */
   .services-tabs{display:flex;gap:10px;margin-top:12px}
   .services-tabs .tab{appearance:none;border:1px solid #e5e7eb;background:#fff;color:var(--ink);padding:10px 14px;border-radius:999px;font-weight:600;cursor:pointer}
   .services-tabs .tab[aria-selected="true"]{background:var(--deep-2);color:#fff;border-color:var(--deep-2)}
-  .services-slider{position:relative;overflow:hidden;margin-top:18px}
-  .services-track{display:flex;transition:transform .5s cubic-bezier(.22,.7,.23,1);will-change:transform;width:200%}
-  .services-panel{width:100%;flex:0 0 100%;padding:0 8px;min-width:0}
-  .services-panel .services{margin-top:18px}
-  /* fix grid item overflow in flex slider context */
-  .services{min-width:0}
-  .card{min-width:0}
-  /* Slightly taller visuals on desktop for balance */
-  .visual{height:220px}
-  @media(max-width:980px){.visual{height:180px}}
-  /* smooth height adjustment wrapper */
-  .services-height{transition:height .45s cubic-bezier(.22,.7,.23,1)}
+
+  /* Panels: stack 3 cards vertically and just toggle visibility */
+  .services-slider{margin-top:18px;padding:0}
+  .services-track{display:block;width:auto;transform:none !important}
+  .services-panel{display:none}
+  .services-panel.active{display:block}
+  .services-panel .services{display:grid;grid-template-columns:1fr;gap:22px;margin-top:18px}
   @media(max-width:980px){.services-tabs{flex-wrap:wrap}}
 
   /* About */
@@ -696,36 +697,38 @@ document.querySelectorAll('.view-more').forEach((btn, idx)=>{
 
 // ==== Services tabs/slider ====
 (function(){
-  const track = document.getElementById('servicesTrack');
   const tabs = Array.from(document.querySelectorAll('.services-tabs .tab'));
-  const panels = [document.getElementById('panel-signature'), document.getElementById('panel-recovery')];
-  const heightWrap = document.querySelector('.services-height');
-
-  function setHeightTo(el){
-    if (!heightWrap || !el) return;
-    // Temporarily unhide to measure
-    const wasHidden = el.hasAttribute('hidden');
-    if (wasHidden) el.removeAttribute('hidden');
-    requestAnimationFrame(()=>{ heightWrap.style.height = el.scrollHeight + 'px'; if (wasHidden) el.setAttribute('hidden',''); });
-  }
+  const panelSignature = document.getElementById('panel-signature');
+  const panelRecovery  = document.getElementById('panel-recovery');
+  const panels = [panelSignature, panelRecovery];
 
   function activate(idx){
     tabs.forEach((t,i)=> t.setAttribute('aria-selected', String(i===idx)));
-    panels.forEach((p,i)=> i===idx ? p.removeAttribute('hidden') : p.setAttribute('hidden',''));
-    track.style.transform = idx===0 ? 'translateX(0%)' : 'translateX(-50%)';
-    setHeightTo(panels[idx]);
+    panels.forEach((p,i)=>{
+      if (i===idx){
+        p.classList.add('active');
+        p.removeAttribute('hidden');
+      } else {
+        p.classList.remove('active');
+        p.setAttribute('hidden','');
+      }
+    });
   }
 
-  // Initialize height to first panel
-  setHeightTo(panels[0]);
+  // init: show Signature by default
+  activate(0);
 
+  // click handlers
   tabs[0].addEventListener('click', ()=>activate(0));
   tabs[1].addEventListener('click', ()=>activate(1));
 
   // keyboard support
-  tabs.forEach((t,i)=> t.addEventListener('keydown', (e)=>{ if(e.key==='ArrowRight') tabs[(i+1)%tabs.length].focus(); if(e.key==='ArrowLeft') tabs[(i-1+tabs.length)%tabs.length].focus(); }));
+  tabs.forEach((t,i)=> t.addEventListener('keydown', (e)=>{
+    if(e.key==='ArrowRight') tabs[(i+1)%tabs.length].focus();
+    if(e.key==='ArrowLeft') tabs[(i-1+tabs.length)%tabs.length].focus();
+  }));
 
-  // If URL hash indicates recovery, open it
+  // Deep link: if URL has #services/recovery, open Recovery
   if (location.hash && location.hash.toLowerCase().includes('recovery')) activate(1);
 })();
 
