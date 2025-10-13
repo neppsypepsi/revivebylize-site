@@ -96,6 +96,8 @@
   /* Header */
   .topbar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid #e5e7eb;backdrop-filter:saturate(180%) blur(8px)}
   .brand{font-weight:800;letter-spacing:.3px;padding:16px 0}
+  .brand-wrap{display:flex;align-items:center;gap:10px;padding:10px 0}
+  .brand-logo{width:36px;height:36px;object-fit:contain;border-radius:6px;background:#fff;border:1px solid #e5e7eb}
   nav{display:flex;gap:12px;flex-wrap:wrap}
   nav a{color:var(--ink);text-decoration:none;font-weight:500;padding:10px 12px;border-radius:999px}
   nav a:hover{background:#f3f4f6}
@@ -227,7 +229,10 @@
 <body>
 <header class="topbar">
   <div class="container row">
-    <div class="brand">Revive by Lize</div>
+    <div class="brand-wrap">
+      <img class="brand-logo" src="logo.png" alt="Revive by Lize logo" />
+      <div class="brand">Revive by Lize</div>
+    </div>
     <nav>
       <div class="dropdown">
         <a href="#services" class="drop-trigger">Services</a>
@@ -320,7 +325,7 @@
             <div class="card">
               <div class="visual"><img src="Nurses.jpg" alt="Healthcare Heroes Massage — stethoscope and towel symbolizing care"></div>
               <h3>Healthcare Heroes Massage</h3>
-              <div class="price">$110 • 60–75 min</div>
+              <div class="price">$100 • 60–75 min</div>
               <p class="summary">Created for those who give everything to care for others — a restorative full‑body session focused on tired feet, heavy legs, lower back, shoulders, and neck.</p>
               <div class="more" style="display:none">
                 <p>Warm magnesium infusion melts away tension, supports circulation, and helps your body recover from long shifts with care and intention.</p>
@@ -331,7 +336,7 @@
             <div class="card">
               <div class="visual"><img src="ITWorker.jpg" alt="Tech Relief Massage — relief for desk work tension"></div>
               <h3>Tech Relief Massage</h3>
-              <div class="price">$110 • 60–75 min</div>
+              <div class="price">$100 • 60–75 min</div>
               <p class="summary">Designed for Bay Area professionals who spend long hours seated — targeting neck, shoulders, back, and hips to relieve desk‑life tension.</p>
               <div class="more" style="display:none">
                 <p>A peppermint and cinnamon infusion stimulates circulation, awakens the senses, and supports mobility — helping chronic tightness release over time.</p>
@@ -342,7 +347,7 @@
             <div class="card">
               <div class="visual"><img src="elderly.jpg" alt="Health &amp; Longevity Massage — gentle care for older adults"></div>
               <h3>Health &amp; Longevity Massage</h3>
-              <div class="price">$110 • 60–75 min</div>
+              <div class="price">$100 • 60–75 min</div>
               <p class="summary">Perfect for older adults and loved ones — gentle movements and nurturing touch to support mobility, flexibility, and circulation.</p>
               <div class="more" style="display:none">
                 <p>Focused on wellness and longevity, this session invites comfort, ease, and a renewed sense of vitality.</p>
@@ -389,9 +394,9 @@
           <option value="Tailored to You — Lifestyle by Lize (60–75 min)">$110 — Tailored to You — Lifestyle by Lize (60–75 min)</option>
           <option value="Lymphatic Flow (60–75 min)">$125 — Lymphatic Flow (60–75 min)</option>
           <option value="Post‑Procedure Lymphatic Flow (45–60 min)">$145 — Post‑Procedure Lymphatic Flow (45–60 min)</option>
-          <option value="Healthcare Heroes Massage (60–75 min)">$110 — Healthcare Heroes Massage (60–75 min)</option>
-          <option value="Tech Relief Massage (60–75 min)">$110 — Tech Relief Massage (60–75 min)</option>
-          <option value="Health & Longevity Massage (60–75 min)">$110 — Health & Longevity Massage (60–75 min)</option>
+          <option value="Healthcare Heroes Massage (60–75 min)">$100 — Healthcare Heroes Massage (60–75 min)</option>
+          <option value="Tech Relief Massage (60–75 min)">$100 — Tech Relief Massage (60–75 min)</option>
+          <option value="Health & Longevity Massage (60–75 min)">$100 — Health & Longevity Massage (60–75 min)</option>
         </select>
       </label>
       <label>Contact Email
