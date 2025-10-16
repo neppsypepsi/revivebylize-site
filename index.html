@@ -170,13 +170,16 @@
     }
   }
 
-  /* Intro (slogan + CTAs on dark monotone gradient) */
-  .intro{background:linear-gradient(135deg,#0f172a,#1f2937);color:#e5e7eb}
-  .intro h1{color:#ffffff}
-  .intro .sub, .intro p{color:#cbd5e1}
+  /* Intro (slogan + CTAs on soft green gradient) */
+  .intro{
+    background: linear-gradient(135deg, #dff3ec, #cfe9e1);
+    color: var(--ink);
+  }
+  .intro h1{color: var(--deep-2)}
+  .intro .sub, .intro p{color:#334155}
   .intro .btn.primary{background:var(--deep-2);color:#ffffff}
-  .intro .btn.secondary{background:transparent;color:#ffffff;border:1px solid rgba(255,255,255,.35)}
-  .intro .btn.secondary:hover{background:rgba(255,255,255,.06)}
+  .intro .btn.secondary{background:transparent;color:var(--deep-2);border:1px solid rgba(31,41,55,.35)}
+  .intro .btn.secondary:hover{background:rgba(31,41,55,.06)}
 
   /* Services */
   .services{display:grid;grid-template-columns:1fr;gap:22px;margin-top:28px}
@@ -262,7 +265,7 @@
         <a href="#services" class="drop-trigger">Services</a>
         <ul class="dropdown-menu">
           <li><a href="#services" class="dropdown-link">Signature Massages</a></li>
-          <li><a href="#services/recovery" class="dropdown-link">Recovery &amp; Wellness</a></li>
+          <li><a href="#services/recovery" class="dropdown-link">Targeted Relief Series</a></li>
         </ul>
       </div>
       <a href="#about">About</a>
@@ -286,9 +289,29 @@
 <section class="intro">
   <div class="container" style="padding:64px 20px">
     <h1>Healing hands. Restoring balance.</h1>
-    <p class="sub">Promoting wellness and balance through circulation and humanized care.</p>
+    <p class="sub">Personalized massage therapy rooted in humanized care and circulatory wellness.</p>
     <a class="btn primary" href="#booking">Book an Appointment</a>
     <a class="btn secondary" href="#services">See Services</a>
+  </div>
+</section>
+
+<section id="about" class="container fadein">
+  <h2>About Lize</h2>
+  <div class="about">
+    <div class="about-visual">
+      <img src="assets/images/about/mom.jpg" alt="Lize — licensed massage therapist in San Jose" />
+    </div>
+    <div>
+      <p><strong>Hello welcome to revive by lize</strong></p>
+      <p>My journey began in Brazil, where I first studied massage therapy and the art of therapeutic
+      touch. After years working in healthcare here in California, especially with wound care and
+      hospice, I saw firsthand how proper circulation sets the foundation for recovery — when flow
+      improves, everything else follows.
+      That’s why <strong>Revive by Lize</strong> was created — to bridge relaxation and recovery. My work is
+      gentle, intuitive, and always intentional. Every session meets you where you are — physically,
+      emotionally, and energetically — and guides your body back into its natural flow.
+      Because when circulation flows, healing follows.</p>
+    </div>
   </div>
 </section>
 
@@ -298,7 +321,7 @@
   <!-- Tabs -->
   <div class="services-tabs" role="tablist" aria-label="Service categories">
     <button class="tab" role="tab" aria-selected="true" aria-controls="panel-signature" id="tab-signature">Signature</button>
-    <button class="tab" role="tab" aria-selected="false" aria-controls="panel-recovery" id="tab-recovery">Recovery &amp; Wellness</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="panel-recovery" id="tab-recovery">Targeted Relief Series</button>
   </div>
 
   <!-- Slider -->
@@ -311,7 +334,7 @@
             <div class="card">
               <div class="visual"><img src="GRF.png" alt="Tailored to You — Lifestyle by Lize"></div>
               <h3>Tailored to You — Lifestyle by Lize</h3>
-              <div class="price">$110 • 60–75 min</div>
+              <div class="price">$120 • ~60 min</div>
               <p class="summary">A full‑body deep relaxation experience tailored to you. This isn’t a routine — it’s a humanized session that flows with what your body needs that day.</p>
               <div class="more" style="display:none">
                 <p>It’s about connection, presence, and restoring your natural rhythm. Each session is uniquely adjusted — sometimes slower, sometimes more stimulating — dedicated just for you.</p>
@@ -321,11 +344,16 @@
 
             <div class="card">
               <div class="visual"><img src="TBR.png" alt="Lymphatic Flow"></div>
-              <h3>Lymphatic Flow</h3>
-              <div class="price">$125 • 60–75 min</div>
-              <p class="summary">A gentle, rhythmic full‑body massage that encourages natural lymph movement — supporting detoxification, balance, and overall wellness.</p>
+              <h3>Lymphatic Drainage Massage</h3>
+              <div class="price">Sectional: $95 | Full Body: $145 • ~60 min</div>
+              <p class="summary">A gentle, rhythmic technique that supports lymph flow, detox, and overall energy.</p>
               <div class="more" style="display:none">
-                <p>Combining traditional manual drainage principles with a humanized approach focused on comfort and awareness. Each session stimulates circulation, helps reduce water retention, and restores lightness to the body.</p>
+                <p>Benefits:</p>
+                <ul>
+                  <li>Reduces swelling and water retention</li>
+                  <li>Promotes detox and immune balance</li>
+                  <li>Ideal post-flight, after illness, or for general wellness</li>
+                </ul>
               </div>
               <button class="btn secondary view-more">View more</button>
             </div>
@@ -333,23 +361,24 @@
             <div class="card">
               <div class="visual"><img src="RFF.png" alt="Post‑Procedure Lymphatic Flow"></div>
               <h3>Post‑Procedure Lymphatic Flow</h3>
-              <div class="price">$145 • 45–60 min</div>
+              <div class="price">First session: $189 | Follow-up: $150 • ~45 min</div>
               <p class="summary">Specialized recovery care designed to support the body after surgery or cosmetic procedures — with an ultra‑gentle, restorative flow.</p>
               <div class="more" style="display:none">
                 <p>The technique adapts for healing tissues to help reduce swelling, prevent fibrosis, and improve comfort during recovery. Available in‑studio or in‑home, always with humanized care that follows your healing rhythm.</p>
+                <p><em>Ask about package options during your in-person consultation.</em></p>
               </div>
               <button class="btn secondary view-more">View more</button>
             </div>
           </div>
         </div>
 
-        <!-- Panel B: Recovery & Wellness -->
+        <!-- Panel B: Targeted Relief Series -->
         <div class="services-panel" id="panel-recovery" role="tabpanel" aria-labelledby="tab-recovery" hidden>
           <div class="services">
             <div class="card">
               <div class="visual"><img src="Nurses.jpg" alt="Healthcare Heroes Massage — stethoscope and towel symbolizing care"></div>
-              <h3>Healthcare Heroes Massage</h3>
-              <div class="price">$100 • 60–75 min</div>
+              <h3>The Root Release</h3>
+              <div class="price">$100 • ~45 min</div>
               <p class="summary">Created for those who give everything to care for others — a restorative full‑body session focused on tired feet, heavy legs, lower back, shoulders, and neck.</p>
               <div class="more" style="display:none">
                 <p>Warm magnesium infusion melts away tension, supports circulation, and helps your body recover from long shifts with care and intention.</p>
@@ -358,9 +387,9 @@
             </div>
 
             <div class="card">
-              <div class="visual"><img src="ITWorker.jpg" alt="Tech Relief Massage — relief for desk work tension"></div>
-              <h3>Tech Relief Massage</h3>
-              <div class="price">$100 • 60–75 min</div>
+              <div class="visual"><img src="ITWorker.jpg" alt="The Posture Reset — relief for desk work tension"></div>
+              <h3>The Posture Reset</h3>
+              <div class="price">$85 • ~45 min</div>
               <p class="summary">Designed for Bay Area professionals who spend long hours seated — targeting neck, shoulders, back, and hips to relieve desk‑life tension.</p>
               <div class="more" style="display:none">
                 <p>A peppermint and cinnamon infusion stimulates circulation, awakens the senses, and supports mobility — helping chronic tightness release over time.</p>
@@ -371,7 +400,7 @@
             <div class="card">
               <div class="visual"><img src="elderly.jpg" alt="Health &amp; Longevity Massage — gentle care for older adults"></div>
               <h3>Health &amp; Longevity Massage</h3>
-              <div class="price">$100 • 60–75 min</div>
+              <div class="price">$85 • ~45 min</div>
               <p class="summary">Perfect for older adults and loved ones — gentle movements and nurturing touch to support mobility, flexibility, and circulation.</p>
               <div class="more" style="display:none">
                 <p>Focused on wellness and longevity, this session invites comfort, ease, and a renewed sense of vitality.</p>
@@ -385,20 +414,6 @@
   </div>
 </section>
 
-<section id="about" class="container fadein">
-  <h2>About Lize</h2>
-  <div class="about">
-    <div class="about-visual">
-      <img src="assets/images/about/mom.jpg" alt="Lize — licensed massage therapist in San Jose" />
-    </div>
-    <div>
-      <p><strong>Hello, and welcome to Revive by Lize.</strong></p>
-      <p>I first studied massage therapy in Brazil, where I learned the art of therapeutic touch. Through my work in healthcare here in the U.S.—especially in wound care—I came to understand how essential circulation is for the body’s healing process.</p>
-      <p>I’ve seen how poor circulation can slow recovery, and how even gentle, mindful touch can help the body restore itself. Whether it’s easing post‑surgical swelling, helping a bruise fade faster, or supporting someone who spends long hours standing or sitting, proper circulation is the foundation of balance and well‑being.</p>
-      <p>The techniques I use today are gentle, intentional, and guided by your body’s natural rhythm. To me, massage is more than technique—it’s humanized touch, mindful care, and giving your body the chance to recover, reset, and feel whole again.</p>
-    </div>
-  </div>
-</section>
 
 <section id="booking" class="container fadein">
   <h2>Book an Appointment</h2>
@@ -415,12 +430,12 @@
       </label>
       <label>Service
         <select id="service" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px">
-          <option value="Tailored to You — Lifestyle by Lize (60–75 min)">$110 — Tailored to You — Lifestyle by Lize (60–75 min)</option>
-          <option value="Lymphatic Flow (60–75 min)">$125 — Lymphatic Flow (60–75 min)</option>
-          <option value="Post‑Procedure Lymphatic Flow (45–60 min)">$145 — Post‑Procedure Lymphatic Flow (45–60 min)</option>
-          <option value="Healthcare Heroes Massage (60–75 min)">$100 — Healthcare Heroes Massage (60–75 min)</option>
-          <option value="Tech Relief Massage (60–75 min)">$100 — Tech Relief Massage (60–75 min)</option>
-          <option value="Health & Longevity Massage (60–75 min)">$100 — Health & Longevity Massage (60–75 min)</option>
+          <option value="Tailored to You — Lifestyle by Lize (~60 min)">$120 — Tailored to You — Lifestyle by Lize (~60 min)</option>
+          <option value="Lymphatic Drainage Massage (~60 min)">Sectional: $95 | Full Body: $145 — Lymphatic Drainage Massage (~60 min)</option>
+          <option value="Post-Procedure Lymphatic Flow (~45 min)">First session: $189 | Follow-up: $150 — Post-Procedure Lymphatic Flow (~45 min)</option>
+          <option value="The Root Release (~45 min)">$100 — The Root Release (~45 min)</option>
+          <option value="The Posture Reset (~45 min)">$85 — The Posture Reset (~45 min)</option>
+          <option value="Health & Longevity Massage (~45 min)">$85 — Health &amp; Longevity Massage (~45 min)</option>
         </select>
       </label>
       <label>Contact Email
@@ -512,12 +527,12 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 // ==== Booking: custom calendar + API calls ====
 const SERVICE_LABELS = [
-  "Tailored to You — Lifestyle by Lize (60–75 min)",
-  "Lymphatic Flow (60–75 min)",
-  "Post‑Procedure Lymphatic Flow (45–60 min)",
-  "Healthcare Heroes Massage (60–75 min)",
-  "Tech Relief Massage (60–75 min)",
-  "Health & Longevity Massage (60–75 min)"
+  "Tailored to You — Lifestyle by Lize (~60 min)",
+  "Lymphatic Drainage Massage (~60 min)",
+  "Post-Procedure Lymphatic Flow (~45 min)",
+  "The Root Release (~45 min)",
+  "The Posture Reset (~45 min)",
+  "Health & Longevity Massage (~45 min)"
 ];
 
 const calEl   = document.getElementById('calendar');
@@ -699,7 +714,48 @@ if (calEl && timeSel && svcSel && reqBtn && reqMsg) {
       const data = await r.json();
       if (data && data.ok){
         reqMsg.style.color = "#16a34a";
-        reqMsg.textContent = "Booked! A confirmation email was sent to you.";
+        // Build ICS file for calendar add
+        const svcLabel = service; // already matches SERVICE_LABELS
+        // Extract approximate minutes from label like "(~45 min)"
+        const match = /\(~\s*(\d+)\s*min\)/i.exec(svcLabel);
+        const mins = match ? parseInt(match[1], 10) : 60;
+        const start = new Date(isoStart);
+        const end = new Date(start.getTime() + mins * 60000);
+        // Compose location string
+        const locText = locationChoice === 'mobile'
+          ? `Mobile visit${clientAddress ? ' — ' + clientAddress.replace(/\r?\n/g,' ') : ''}`
+          : 'In‑studio';
+        // ICS helpers
+        const pad = n => String(n).padStart(2,'0');
+        const fmtUTC = (d) => d.getUTCFullYear()
+          + pad(d.getUTCMonth()+1)
+          + pad(d.getUTCDate()) + 'T'
+          + pad(d.getUTCHours())
+          + pad(d.getUTCMinutes())
+          + pad(d.getUTCSeconds()) + 'Z';
+        const uid = Math.random().toString(36).slice(2) + '@revivebylize.com';
+        const now = new Date();
+        const ics =
+`BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Revive by Lize//Booking//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:${uid}
+DTSTAMP:${fmtUTC(now)}
+DTSTART:${fmtUTC(start)}
+DTEND:${fmtUTC(end)}
+SUMMARY:${svcLabel.replace(/[\n\r]/g,' ')}
+LOCATION:${locText.replace(/[\n\r]/g,' ')}
+DESCRIPTION:Booked via revivebylize.com for ${name || 'client'} • ${email}
+END:VEVENT
+END:VCALENDAR`;
+        const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        // Human confirmation text
+        const whenText = new Date(isoStart).toLocaleString([], { dateStyle:'medium', timeStyle:'short', timeZone: TZ });
+        reqMsg.innerHTML = `Booked! <strong>${svcLabel}</strong> on <strong>${whenText}</strong>. <a href="${url}" download="revive-${start.toISOString().slice(0,10)}.ics">Add to Calendar (.ics)</a>`;
       } else {
         reqMsg.style.color = "#ef4444";
         reqMsg.textContent = "Booking failed. Please try again.";
