@@ -194,6 +194,16 @@
     -webkit-box-orient:vertical;
     overflow:hidden;
   }
+  /* When a card is expanded, show the full summary text (remove clamp) */
+  .card.expanded .summary{
+    display:block;
+    -webkit-line-clamp:unset;
+    overflow:visible;
+  }
+@media (max-width: 640px){
+  /* Hide floating FAB on small screens to avoid overlap */
+  .booknow-fab{ display:none; }
+}
 
   /* Services tabs — simple show/hide, no slider */
   .services-tabs{display:flex;gap:10px;margin-top:12px}
@@ -343,8 +353,8 @@
             </div>
 
             <div class="card">
-              <div class="visual"><img src="TBR.png" alt="Lymphatic Flow"></div>
-              <h3>Lymphatic Drainage Massage</h3>
+              <div class="visual"><img src="TBR.png" alt="Lymphatic Drainage"></div>
+              <h3>Lymphatic Drainage</h3>
               <div class="price">Sectional: $95 | Full Body: $145 • ~60 min</div>
               <p class="summary">A gentle, rhythmic technique that supports lymph flow, detox, and overall energy.</p>
               <div class="more" style="display:none">
@@ -431,7 +441,7 @@
       <label>Service
         <select id="service" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px">
           <option value="Tailored to You — Lifestyle by Lize (~60 min)">$120 — Tailored to You — Lifestyle by Lize (~60 min)</option>
-          <option value="Lymphatic Drainage Massage (~60 min)">Sectional: $95 | Full Body: $145 — Lymphatic Drainage Massage (~60 min)</option>
+          <option value="Lymphatic Drainage (~60 min)">Sectional: $95 | Full Body: $145 — Lymphatic Drainage (~60 min)</option>
           <option value="Post-Procedure Lymphatic Flow (~45 min)">First session: $189 | Follow-up: $150 — Post-Procedure Lymphatic Flow (~45 min)</option>
           <option value="The Root Release (~45 min)">$100 — The Root Release (~45 min)</option>
           <option value="The Posture Reset (~45 min)">$85 — The Posture Reset (~45 min)</option>
@@ -528,7 +538,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 // ==== Booking: custom calendar + API calls ====
 const SERVICE_LABELS = [
   "Tailored to You — Lifestyle by Lize (~60 min)",
-  "Lymphatic Drainage Massage (~60 min)",
+  "Lymphatic Drainage (~60 min)",
   "Post-Procedure Lymphatic Flow (~45 min)",
   "The Root Release (~45 min)",
   "The Posture Reset (~45 min)",
@@ -782,6 +792,7 @@ document.querySelectorAll('.view-more').forEach((btn, idx)=>{
     if (!more) return;
     const open = more.style.display !== 'none';
     more.style.display = open ? 'none' : '';
+    card.classList.toggle('expanded', !open);
     btn.textContent = open ? 'View more' : 'View less';
   });
 });
