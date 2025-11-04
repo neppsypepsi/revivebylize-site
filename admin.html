@@ -37,6 +37,9 @@
       <input id="token" type="password" placeholder="Admin token (ADMIN_TOKEN)" />
       <button id="load">Load bookings</button>
       <span id="msg" class="muted"></span>
+      <label class="muted" style="margin-left:auto;display:flex;align-items:center;gap:6px">
+        <input id="showAll" type="checkbox" /> Show all
+      </label>
     </div>
 
     <table id="tbl">
@@ -61,6 +64,7 @@
 const $ = s => document.querySelector(s);
 const tbody = $('#tbl tbody');
 const msg = $('#msg');
+let latestEvents = [];
 
 function fmt(iso){
   if (!iso) return '';
@@ -82,11 +86,27 @@ async function fetchEvents(){
     const r = await fetch('/api/events', { headers:{ Authorization:'Bearer '+token }});
     const data = await r.json();
     if (!r.ok || !data.ok){ msg.textContent = 'Failed: ' + (data.error || r.status); return; }
-    renderRows(data.events || []);
-    msg.textContent = data.events.length ? '' : 'No upcoming bookings.';
+    latestEvents = data.events || [];
+    renderFiltered();
   }catch(e){
     msg.textContent = 'Error loading events';
   }
+}
+
+function renderFiltered(){
+  const showAll = document.getElementById('showAll')?.checked;
+  let list = latestEvents.slice();
+  if (!showAll){
+    const now = new Date();
+    list = list.filter(ev=>{
+      if (!ev || !ev.start) return false;
+      const start = new Date(ev.start);
+      const diffHrs = (now - start) / 36e5; // hours since start
+      return start >= now || diffHrs <= 48; // future OR within 48h grace
+    });
+  }
+  renderRows(list);
+  msg.textContent = list.length ? '' : (showAll ? 'No bookings found.' : 'No recent or upcoming bookings.');
 }
 
 function renderRows(events){
@@ -179,6 +199,8 @@ tbody.addEventListener('click', async (e)=>{
 });
 
 document.getElementById('load').addEventListener('click', fetchEvents);
+const showAllEl = document.getElementById('showAll');
+showAllEl && showAllEl.addEventListener('change', renderFiltered);
 </script>
 </body>
 </html>
