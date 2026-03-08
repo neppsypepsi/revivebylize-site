@@ -1,0 +1,60 @@
+/* ── Hero (full-bleed video) ───────────────────────────────────────────── */
+.hero { padding: 0; background: #000; }
+.hero-inner { padding: 0; display: block; }
+.hero p { color: var(--muted); font-size: 18px; margin: 0 0 24px; }
+.hero-visual {
+  position: relative;
+  height: 100svh;
+  min-height: 520px;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+  background: #000;
+}
+.hero-visual video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+.hero-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.35);
+}
+@media (max-width: 640px) {
+  .hero-visual {
+    height: auto;
+    min-height: 0;
+    background: #000;
+  }
+  .hero-visual::after { display: none; }
+  .hero-visual video {
+    position: static;
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 100svh;
+    object-fit: contain;
+    object-position: center center;
+    background: #000;
+  }
+}
+
+/* ── Intro (slogan + CTAs on soft green gradient) ─────────────────────── */
+.intro {
+  background: linear-gradient(135deg, #dff3ec, #cfe9e1);
+  color: var(--ink);
+}
+.intro h1 { color: var(--deep-2); }
+.intro .sub, .intro p { color: #334155; }
+.intro .btn.primary { background: var(--deep-2); color: #ffffff; }
+.intro .btn.secondary {
+  background: transparent;
+  color: var(--deep-2);
+  border: 1px solid rgba(31,41,55,.35);
+}
+.intro .btn.secondary:hover { background: rgba(31,41,55,.06); }
