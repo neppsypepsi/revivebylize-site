@@ -6,10 +6,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 const SERVICE_LABELS = [
   "Tailored to You — Lifestyle by Lize (~60 min)",
   "Brazilian Lymphatic Drainage (~60 min)",
-  "Post-Procedure Lymphatic Flow (~45 min)",
-  "The Root Release (~45 min)",
-  "The Posture Reset (~45 min)",
-  "Health & Longevity Massage (~45 min)"
+  "Post-Procedure Lymphatic Flow (~45 min)"
 ];
 
 const calEl      = document.getElementById('calendar');
