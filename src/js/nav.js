@@ -1,31 +1,45 @@
-// ── Mobile menu toggle & dropdown support ──────────────────────────────────
-(function () {
-  const btn = document.querySelector('.menu-toggle');
-  const nav = document.getElementById('navMenu');
-  if (!btn || !nav) return;
+// ── Sticky nav + mobile hamburger + scroll fade-ins ──────────────────────
+const nav       = document.getElementById('siteNav');
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobileNav');
 
-  btn.addEventListener('click', () => {
-    const open = nav.classList.toggle('open');
-    btn.setAttribute('aria-expanded', String(open));
+// Add .scrolled class once user scrolls past the fold
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// Start scrolled if page is loaded mid-scroll
+if (window.scrollY > 60) nav.classList.add('scrolled');
+
+// Hamburger open/close
+if (hamburger && mobileNav) {
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+    mobileNav.setAttribute('aria-hidden', String(!isOpen));
   });
 
-  // Close menu when a link is tapped
-  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    nav.classList.remove('open');
-    btn.setAttribute('aria-expanded', 'false');
-  }));
+  // Close drawer on link tap
+  mobileNav.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileNav.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      mobileNav.setAttribute('aria-hidden', 'true');
+    });
+  });
+}
 
-  // Enable dropdown open on tap for mobile
-  const dd = nav.querySelector('.dropdown');
-  if (dd) {
-    const trigger = dd.querySelector('.drop-trigger');
-    if (trigger) {
-      trigger.addEventListener('click', e => {
-        if (window.matchMedia('(max-width: 768px)').matches) {
-          e.preventDefault();
-          dd.classList.toggle('open');
-        }
-      });
+// Scroll-triggered fade-ins
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
     }
-  }
-})();
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.fadein').forEach(el => observer.observe(el));
+

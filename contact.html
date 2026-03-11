@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — Revive by Lize</title>
+<meta name="description" content="Book a massage therapy session with Lize. Reach out by phone or email, or fill out the form to schedule your visit in San Jose, CA.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/src/styles/base.css">
+<link rel="stylesheet" href="/src/styles/layout.css">
+<link rel="stylesheet" href="/src/styles/sections.css">
+<link rel="stylesheet" href="/src/styles/animations.css">
+</head>
+<body>
+
+<!-- ── NAVIGATION ─────────────────────────────────────────────────────── -->
+<header class="site-nav scrolled" id="siteNav">
+  <div class="nav-inner">
+    <div class="nav-group nav-left">
+      <a href="/#treatments" class="nav-link">Treatments</a>
+      <a href="/#pricing" class="nav-link">Pricing</a>
+    </div>
+    <a href="/" class="nav-brand">REVIVE</a>
+    <div class="nav-group nav-right">
+      <a href="/#about" class="nav-link">About</a>
+      <a href="/contact.html" class="nav-link nav-link--active">Contact</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <a href="/#treatments" class="nav-link">Treatments</a>
+    <a href="/#pricing" class="nav-link">Pricing</a>
+    <a href="/" class="nav-link nav-brand-mobile">REVIVE</a>
+    <a href="/#about" class="nav-link">About</a>
+    <a href="/contact.html" class="nav-link">Contact</a>
+  </nav>
+</header>
+
+<!-- ── CONTACT ────────────────────────────────────────────────────────── -->
+<section id="contact" class="contact-section fadein">
+
+  <div class="contact-header">
+    <h2 class="contact-heading">We'd Love to<br><em>Hear From You</em></h2>
+    <p class="contact-sub">For bookings or questions, we're always here for you.</p>
+  </div>
+
+  <div class="contact-cards">
+    <a href="tel:+14085550000" class="contact-info-card">
+      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-2.91-8.72 2 2 0 011.98-2.17h3a2 2 0 012 1.72 13.31 13.31 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 13.31 13.31 0 002.81.7A2 2 0 0122 16.92z"/>
+      </svg>
+      <div>
+        <div class="contact-info-label">Call Us</div>
+        <div class="contact-info-value">Reach us by phone</div>
+      </div>
+    </a>
+    <a href="mailto:contact@revivebylize.com" class="contact-info-card">
+      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="4" width="20" height="16" rx="2"/>
+        <path d="M2 7l10 7 10-7"/>
+      </svg>
+      <div>
+        <div class="contact-info-label">Email Us</div>
+        <div class="contact-info-value">contact@revivebylize.com</div>
+      </div>
+    </a>
+  </div>
+
+  <div class="contact-form-wrap">
+    <form class="contact-form" id="contactForm">
+      <h3 class="form-title">Schedule Visit</h3>
+
+      <div class="form-row">
+        <label class="form-field form-full">
+          <span class="form-label">Full Name *</span>
+          <input class="form-input" type="text" name="name" placeholder="Enter your name" required>
+        </label>
+      </div>
+
+      <div class="form-row">
+        <label class="form-field">
+          <span class="form-label">Email *</span>
+          <input class="form-input" type="email" name="email" placeholder="Enter email address" required>
+        </label>
+        <label class="form-field">
+          <span class="form-label">Phone</span>
+          <input class="form-input" type="tel" name="phone" placeholder="Enter phone number">
+        </label>
+      </div>
+
+      <div class="form-row">
+        <label class="form-field form-full">
+          <span class="form-label">Preferred Treatment *</span>
+          <select class="form-input form-select" name="treatment" required>
+            <option value="" disabled selected>Select a treatment...</option>
+            <option>Tailored to You — Lifestyle by Lize ($120)</option>
+            <option>Brazilian Lymphatic Drainage ($140)</option>
+            <option>Post‑Procedure Lymphatic Flow (from $150)</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="form-row">
+        <label class="form-field">
+          <span class="form-label">Preferred Date *</span>
+          <input class="form-input" type="date" name="date" required>
+        </label>
+        <label class="form-field">
+          <span class="form-label">Preferred Time *</span>
+          <input class="form-input" type="time" name="time" required>
+        </label>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field form-full">
+          <span class="form-label">Location</span>
+          <div class="form-radio-group">
+            <label class="form-radio">
+              <input type="radio" name="location" value="studio" checked>
+              <span>In-Studio</span>
+            </label>
+            <label class="form-radio">
+              <input type="radio" name="location" value="mobile">
+              <span>Mobile Visit (+$15 travel fee)</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <button class="form-submit" type="submit">Confirm Request</button>
+      <p id="formMsg" class="form-msg"></p>
+    </form>
+  </div>
+
+  <!-- Plan Your Visit -->
+  <div class="plan-visit fadein">
+    <h3 class="plan-title">Plan Your Visit</h3>
+    <div class="plan-cards">
+      <div class="plan-card">
+        <svg class="plan-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+        <div class="plan-label">Our Location</div>
+        <div class="plan-value">San Jose, CA<br><span style="opacity:.5">Address TBA</span></div>
+      </div>
+      <div class="plan-card">
+        <svg class="plan-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 6v6l4 2"/>
+        </svg>
+        <div class="plan-label">Hours</div>
+        <div class="plan-value">By appointment<br>Reach out to book</div>
+      </div>
+    </div>
+
+    <!-- Google Maps embed -->
+    <div class="map-wrap">
+      <iframe
+        class="map-iframe"
+        title="Location map — San Jose, CA"
+        src="https://maps.google.com/maps?q=Safeway,+1450+W+San+Carlos+St,+San+Jose,+CA&t=&z=14&ie=UTF8&iwloc=&output=embed"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+
+</section>
+
+<!-- ── PARALLAX IMAGE ─────────────────────────────────────────────────── -->
+<div class="parallax-wrap">
+  <img class="parallax-zoom" src="/images/services/Nurses.jpg" alt="Revive by Lize — healing touch" />
+</div>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">REVIVE <span class="footer-by">by Lize</span></div>
+    <nav class="footer-links">
+      <a href="/#treatments">Treatments</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/#about">About</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+    <p class="footer-copy">© <span id="year"></span> Revive by Lize · San Jose, CA</p>
+  </div>
+</footer>
+
+<script type="module" src="/src/js/nav.js"></script>
+<script type="module" src="/src/js/contact.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

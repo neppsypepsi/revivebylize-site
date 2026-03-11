@@ -4,240 +4,143 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Revive by Lize — Massage Therapy</title>
-<meta name="description" content="Massage therapy for healing, renewal, and radiant relaxation in the Bay Area. Gentle Recovery Flow, Total Body Renewal, Radiance Facial Flow.">
+<meta name="description" content="Luxury massage therapy for healing, renewal, and radiant relaxation. By Lize — San Jose, CA.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/src/styles/base.css">
-<link rel="stylesheet" href="/src/styles/animations.css">
 <link rel="stylesheet" href="/src/styles/layout.css">
 <link rel="stylesheet" href="/src/styles/hero.css">
 <link rel="stylesheet" href="/src/styles/sections.css">
+<link rel="stylesheet" href="/src/styles/animations.css">
 </head>
 <body>
-<header class="topbar">
-  <div class="container row">
-    <div class="brand-wrap">
-      <img class="brand-logo" src="/images/logo.png" alt="Revive by Lize logo" />
-      <div class="brand">Revive by Lize</div>
+
+<!-- ── NAVIGATION ─────────────────────────────────────────────────────── -->
+<header class="site-nav" id="siteNav">
+  <div class="nav-inner">
+    <div class="nav-group nav-left">
+      <a href="#treatments" class="nav-link">Treatments</a>
+      <a href="#pricing" class="nav-link">Pricing</a>
     </div>
-    <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
+    <a href="#home" class="nav-brand">REVIVE</a>
+    <div class="nav-group nav-right">
+      <a href="#about" class="nav-link">About</a>
+      <a href="/contact.html" class="nav-link">Contact</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
     </button>
-    <nav id="navMenu">
-      <div class="dropdown">
-        <a href="#services" class="drop-trigger">Services</a>
-        <ul class="dropdown-menu">
-          <li><a href="#services" class="dropdown-link">Services</a></li>
-        </ul>
-      </div>
-      <a href="#about">About</a>
-      <a href="#booking">Book</a>
-      <a href="/policies.html">Policies</a>
-      <a href="mailto:contact@revivebylize.com">Contact</a>
-      <a href="https://www.instagram.com/revivebylize" target="_blank" rel="noopener" aria-label="Instagram">
-        <img src="/images/about/Instagram.png" alt="Instagram" class="social-icon" />
-      </a>
-      <a class="cta" href="mailto:contact@revivebylize.com">Email</a>
-    </nav>
   </div>
+  <nav class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <a href="#treatments" class="nav-link">Treatments</a>
+    <a href="#pricing" class="nav-link">Pricing</a>
+    <a href="#home" class="nav-link nav-brand-mobile">REVIVE</a>
+    <a href="#about" class="nav-link">About</a>
+    <a href="/contact.html" class="nav-link">Contact</a>
+  </nav>
 </header>
 
-
-<section class="hero" aria-label="Hero video">
-  <div class="hero-visual">
+<!-- ── HERO ───────────────────────────────────────────────────────────── -->
+<section class="hero" id="home">
+  <div class="hero-media">
     <video class="hero-video" autoplay muted loop playsinline preload="metadata">
       <source src="/videos/massage-hero.mp4" type="video/mp4" />
     </video>
+    <div class="hero-overlay"></div>
   </div>
 </section>
 
-<section class="intro">
-  <div class="container" style="padding:64px 20px">
-    <h1>Healing hands. Restoring balance.</h1>
-    <p class="sub">Personalized massage therapy rooted in humanized care and circulatory wellness.</p>
-    <a class="btn primary" href="#booking">Book an Appointment</a>
-    <a class="btn secondary" href="#services">See Services</a>
-  </div>
-</section>
+<!-- ── SERVICES PREVIEW ───────────────────────────────────────────────── -->
+<section class="services-preview fadein" id="treatments">
+  <div class="services-grid">
 
-<section id="about" class="container fadein">
-  <h2>About Lize</h2>
-  <div class="about">
-    <div class="about-visual">
-      <img src="/images/about/mom.jpg" alt="Lize — licensed massage therapist in San Jose" />
-    </div>
-    <div>
-      <p><strong>Hello welcome to Revive by Lize</strong></p>
-      <em><p>My journey began in Brazil, where I first studied massage therapy and the art of therapeutic
-      touch. After years working in healthcare here in California, especially with wound care and
-      hospice, I saw firsthand how proper circulation sets the foundation for recovery. When flow
-      improves, everything else follows.
-      That's why <strong>Revive by Lize</strong> was created, to bridge relaxation and recovery. My work is
-      gentle, intuitive, and always intentional. Every session meets you where you are, physically,
-      emotionally, and energetically, and guides your body back into its natural flow.
-      Because when circulation flows, healing follows.</p></em>
-      <p class="policy-note">
-        <strong>Note:</strong> Revive by Lize is a <em>women-only</em> massage service.
-        Male clients may be accepted by personal referral only.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section id="services" class="container fadein">
-  <h2>Services</h2>
-
-  <div class="services">
-            <div class="card">
-              <div class="visual"><img src="/images/services/GRF.png" alt="Tailored to You — Lifestyle by Lize"></div>
-              <h3>Tailored to You — Lifestyle by Lize</h3>
-              <div class="price">$120 • ~60 min</div>
-              <p class="summary">A personalized full-body session that adapts to what your body needs that day. No fixed routine, just attentive, intentional touch focused on tension relief, circulation, and balance.</p>
-              <div class="more" style="display:none">
-                <p>People come to this session for all kinds of reasons: neck and shoulder tension, fatigue from long hours on their feet, tightness from sitting at a desk, or just needing a real reset. The session may also include gentle stretching and range of motion work, making it a great fit for older adults or anyone who benefits from slower, more supportive care.</p>
-                <p><em>Optional: body exfoliation or magnesium and cinnamon-infused products to boost circulation and relaxation.</em></p>
-              </div>
-              <button class="btn secondary view-more">View more</button>
-            </div>
-
-            <div class="card">
-              <div class="visual"><img src="/images/services/TBR.png" alt="Brazilian Lymphatic Drainage"></div>
-              <h3>Brazilian Lymphatic Drainage</h3>
-              <div class="price">$140 • ~60 min</div>
-              <p class="summary">A Brazilian-inspired technique using rhythmic, intentional movements to support fluid circulation — leaving the body feeling lighter, more defined, and refreshed.</p>
-              <div class="more" style="display:none">
-                <p>Clients often choose this session to:</p>
-                <ul>
-                  <li>Reduce the feeling of swelling or water retention</li>
-                  <li>Support natural body contour and feel lighter</li>
-                  <li>Improve circulation and overall balance</li>
-                  <li>Leave feeling slimmer and more revitalized</li>
-                </ul>
-                <p>Each session is adapted to how your body responds, with attentive, humanized care that follows your natural rhythm.</p>
-              </div>
-              <button class="btn secondary view-more">View more</button>
-            </div>
-
-            <div class="card">
-              <div class="visual"><img src="/images/services/RFF.png" alt="Post‑Procedure Lymphatic Flow"></div>
-              <h3>Post‑Procedure Lymphatic Flow</h3>
-              <div class="price">First session: $189 | Follow-up: $150 • ~45 min</div>
-              <p class="summary">Specialized recovery care designed to support the body after surgery or cosmetic procedures — with an ultra‑gentle, restorative flow.</p>
-              <div class="more" style="display:none">
-                <p>The technique adapts for healing tissues to help reduce swelling, prevent fibrosis, and improve comfort during recovery. Available in‑studio or in‑home, always with humanized care that follows your healing rhythm.</p>
-                <p><em>Ask about package options during your in-person consultation.</em></p>
-              </div>
-              <button class="btn secondary view-more">View more</button>
-            </div>
-  </div>
-</section>
-
-
-<section id="booking" class="container fadein">
-  <h2>Book an Appointment</h2>
-  <div class="sub">Pick a date, choose a time, select a service, and enter your email. You'll get a confirmation instantly.</div>
-
-  <div class="card" style="margin-top:14px">
-    <div id="calendar" class="calendar"></div>
-
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px">
-      <label>Time
-        <select id="time" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px">
-          <option value="">Select a time</option>
-        </select>
-      </label>
-      <label>Service
-        <select id="service" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px">
-          <option value="Tailored to You — Lifestyle by Lize (~60 min)">$120 — Tailored to You — Lifestyle by Lize (~60 min)</option>
-          <option value="Brazilian Lymphatic Drainage (~60 min)">$140 — Brazilian Lymphatic Drainage (~60 min)</option>
-          <option value="Post-Procedure Lymphatic Flow (~45 min)">First session: $189 | Follow-up: $150 — Post-Procedure Lymphatic Flow (~45 min)</option>
-        </select>
-      </label>
-      <label>Contact Email
-        <input id="clientEmail" type="email" placeholder="you@example.com" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px">
-      </label>
-    </div>
-
-    <!-- New row: Name + Location choice + Address (for mobile) -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px">
-      <label>Your Name (optional)
-        <input id="clientName" type="text" placeholder="Jane Doe" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px">
-      </label>
-      <label>Location
-        <select id="location" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px">
-          <option value="studio">In-studio (no travel fee)</option>
-          <option value="mobile">Mobile visit (travel fee applies)</option>
-        </select>
-      </label>
-      <label id="addrWrap" style="display:none">Address (for mobile visit)
-        <input id="clientAddress" type="text" placeholder="Street, City" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px">
-      </label>
-    </div>
-    <div id="travelNote" class="small" style="display:none;color:#b45309;margin-top:6px">
-      * Mobile visits include a flat <strong>$15 travel fee</strong>. See <a href="/policies.html">Policies</a>.
-    </div>
-
-    <div style="margin-top:12px">
-      <button id="requestBtn" class="btn primary">Request Booking</button>
-      <span id="reqMsg" class="small" style="margin-left:10px;color:#6b7280"></span>
-    </div>
-
-    <div class="cal-legend">
-      <span><span class="chip ok"></span>Available</span>
-      <span><span class="chip no"></span>Unavailable</span>
-    </div>
-  </div>
-</section>
-
-<section id="testimonials" class="container testimonials fadein">
-  <h2>What Clients Say</h2>
-  <div class="testimonials-grid">
-    <div class="card">
-      <div class="testimonial-quote">"Lize is gentle, attentive, and truly cares about your healing. I left feeling lighter and more relaxed than I have in months."</div>
-      <div class="testimonial-author">— Maria G.</div>
-    </div>
-    <div class="card">
-      <div class="testimonial-quote">"The Total Body Renewal was exactly what I needed after a stressful week. The environment is calming and Lize's touch is magic."</div>
-      <div class="testimonial-author">— James L.</div>
-    </div>
-    <div class="card">
-      <div class="testimonial-quote">"I had post-surgery swelling and discomfort. Lize's massage helped so much with my recovery. Highly recommend!"</div>
-      <div class="testimonial-author">— Priya S.</div>
-    </div>
-  </div>
-</section>
-
-<footer>
-<!-- Sticky Book Now Button -->
-<button
-  class="booknow-fab"
-  onclick="document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });"
-  aria-label="Book Now"
->
-  Book Now
-</button>
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="name" style="font-weight:700">Revive by Lize</div>
-        <div class="small">Promoting wellness and balance through circulation and humanized care.</div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 37C16 37 4 27 4 16C4 8.3 9.4 2 16 2C22.6 2 28 8.3 28 16C28 27 16 37 16 37Z" stroke="#c9a96e" stroke-width="1.2" stroke-linejoin="round"/>
+          <path d="M16 37V18" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M10 22C10 22 12.5 26 16 26C19.5 26 22 22 22 22" stroke="#c9a96e" stroke-width="1" stroke-linecap="round"/>
+        </svg>
       </div>
-      <div>
-        <div class="small"><strong>Quick links</strong></div>
-        <div class="small"><a href="#services">Services</a> · <a href="#about">About</a> · <a href="#booking">Book</a> · <a href="/policies.html">Policies</a> · <a href="mailto:contact@revivebylize.com">Contact</a></div>
-      </div>
-      <div>
-        <div class="small"><strong>Payments</strong></div>
-        <div class="small">Zelle • Cash (in person)</div>
-      </div>
+      <h3 class="service-title">Tailored to You</h3>
+      <p class="service-desc">A personalized full-body session that adapts to what your body needs. Intentional touch focused on tension relief, circulation, and balance.</p>
+      <a href="#pricing" class="service-link">View more</a>
     </div>
-    <div class="credits">© <span id="year"></span> Revive by Lize</div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 38V6" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M16 28C16 28 6 23 4 13C10 11 16 17 16 28Z" stroke="#c9a96e" stroke-width="1.2" stroke-linejoin="round"/>
+          <path d="M16 22C16 22 26 17 28 7C22 5 16 11 16 22Z" stroke="#c9a96e" stroke-width="1.2" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3 class="service-title">Brazilian Lymphatic Drainage</h3>
+      <p class="service-desc">Rhythmic, intentional movements to support fluid circulation — leaving the body lighter, more defined, and refreshed.</p>
+      <a href="#pricing" class="service-link">View more</a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="5" stroke="#c9a96e" stroke-width="1.2"/>
+          <path d="M16 4V8" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M16 24V28" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M4 16H8" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M24 16H28" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M7.5 7.5L10.3 10.3" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M21.7 21.7L24.5 24.5" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M24.5 7.5L21.7 10.3" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M10.3 21.7L7.5 24.5" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M16 30V38" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="1 3"/>
+        </svg>
+      </div>
+      <h3 class="service-title">Post‑Procedure Recovery</h3>
+      <p class="service-desc">Specialized care after surgery or cosmetic procedures — ultra-gentle and restorative, supporting swelling reduction and healing.</p>
+      <a href="#pricing" class="service-link">View more</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── FEATURE SPLIT ──────────────────────────────────────────────────── -->
+<section class="feature-split fadein">
+  <div class="feature-image">
+    <img src="/images/services/TBR.png" alt="Brazilian lymphatic drainage — Revive by Lize" />
+  </div>
+  <div class="feature-text">
+    <h2 class="feature-heading">
+      SPECIAL <em>TREATMENTS</em><br>
+      TO RESTORE YOUR<br>
+      MIND, SOUL AND <em>BODY</em>
+    </h2>
+    <p class="feature-desc">Each session with Lize is crafted around your body's needs — blending Brazilian technique, therapeutic touch, and humanized care to guide you back into your natural flow.</p>
+    <a href="#contact" class="feature-btn">Book a session</a>
+  </div>
+</section>
+
+<!-- ── PRICING (stub) ─────────────────────────────────────────────────── -->
+<div id="pricing"></div>
+
+<!-- ── ABOUT (stub) ───────────────────────────────────────────────────── -->
+<div id="about"></div>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">REVIVE <span class="footer-by">by Lize</span></div>
+    <nav class="footer-links">
+      <a href="#treatments">Treatments</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#about">About</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+    <p class="footer-copy">© <span id="year"></span> Revive by Lize · San Jose, CA</p>
   </div>
 </footer>
 
-<script type="module" src="/src/js/booking.js"></script>
 <script type="module" src="/src/js/nav.js"></script>
-<script type="module" src="/src/js/services.js"></script>
-<script type="module" src="/src/js/animations.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
