@@ -1,12 +1,24 @@
-/* ── Hero ───────────────────────────────────────────────────────────────── */
+/* ── Hero Scroll Zone ───────────────────────────────────────────────────── */
+.hero-scroll-zone {
+  height: 300vh;
+}
+
+/* ── Hero (sticky container) ────────────────────────────────────────────── */
 .hero {
-  position: relative;
-  height: 100svh;
+  position: sticky;
+  top: 0;
+  height: 100vh;
   min-height: 600px;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: var(--off-white);
+}
+
+/* ── Hero Frame (shrinks on scroll via JS) ──────────────────────────────── */
+.hero-frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  will-change: inset, border-radius;
 }
 
 .hero-media {
@@ -19,6 +31,7 @@
   height: 100%;
   object-fit: cover;
   object-position: center center;
+  pointer-events: none;
 }
 
 .hero-overlay {
@@ -27,9 +40,9 @@
   background: linear-gradient(
     to bottom,
     rgba(13,13,13,0.55) 0%,
-    rgba(13,13,13,0.25) 35%,
-    rgba(13,13,13,0.35) 70%,
-    rgba(13,13,13,0.6) 100%
+    rgba(13,13,13,0.20) 35%,
+    rgba(13,13,13,0.45) 70%,
+    rgba(13,13,13,0.65) 100%
   );
 }
 

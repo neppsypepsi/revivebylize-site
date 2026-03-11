@@ -43,3 +43,19 @@ const observer = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.fadein').forEach(el => observer.observe(el));
 
+// ── Hero frame shrink on scroll ────────────────────────────────────────────
+const heroScrollZone = document.querySelector('.hero-scroll-zone');
+const heroFrame      = document.querySelector('.hero-frame');
+
+if (heroScrollZone && heroFrame) {
+  const updateHeroFrame = () => {
+    const scrollRange = heroScrollZone.offsetHeight - window.innerHeight;
+    const progress    = Math.min(1, Math.max(0, window.scrollY / scrollRange));
+    const maxInset = Math.min(window.innerWidth, window.innerHeight) * 0.20;
+    const inset    = progress * maxInset;
+    heroFrame.style.inset = `${inset}px`;
+  };
+  window.addEventListener('scroll', updateHeroFrame, { passive: true });
+  updateHeroFrame();
+}
+

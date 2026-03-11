@@ -42,70 +42,80 @@
 </header>
 
 <!-- ── HERO ───────────────────────────────────────────────────────────── -->
-<section class="hero" id="home">
-  <div class="hero-media">
-    <video class="hero-video" autoplay muted loop playsinline preload="metadata">
-      <source src="/videos/massage-hero.mp4" type="video/mp4" />
-    </video>
-    <div class="hero-overlay"></div>
+<div class="hero-scroll-zone" id="home">
+  <section class="hero">
+    <div class="hero-frame">
+      <div class="hero-media">
+        <video class="hero-video" autoplay muted loop playsinline preload="metadata" disablepictureinpicture>
+          <source src="/videos/massage-hero.mp4" type="video/mp4" />
+        </video>
+        <div class="hero-overlay"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ── ABOUT PREVIEW ──────────────────────────────────────────────────── -->
+<section class="about-preview fadein" id="about">
+
+  <div class="about-preview-inner">
+    <div class="about-preview-left">
+      <span class="about-eyebrow">Our Essence</span>
+      <h2 class="about-preview-heading">The Touch Behind<br><em>Your Renewal</em></h2>
+      <p class="about-preview-text">Lize brings years of dedicated practice and a deeply personal approach to every session — blending Brazilian technique, therapeutic precision, and genuine care to help your body find its natural flow.</p>
+      <a href="/about.html" class="about-preview-btn">
+        About Lize
+        <span class="about-btn-dot"></span>
+      </a>
+    </div>
+
+    <div class="about-preview-right">
+      <div class="about-img-wrap">
+        <img src="/images/about/mom.jpg" alt="Lize — founder of Revive by Lize" />
+      </div>
+    </div>
   </div>
-</section>
 
-<!-- ── SERVICES PREVIEW ───────────────────────────────────────────────── -->
-<section class="services-preview fadein" id="treatments">
-  <div class="services-grid">
-
-    <div class="service-card">
-      <div class="service-icon">
-        <svg viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M16 37C16 37 4 27 4 16C4 8.3 9.4 2 16 2C22.6 2 28 8.3 28 16C28 27 16 37 16 37Z" stroke="#c9a96e" stroke-width="1.2" stroke-linejoin="round"/>
-          <path d="M16 37V18" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round"/>
-          <path d="M10 22C10 22 12.5 26 16 26C19.5 26 22 22 22 22" stroke="#c9a96e" stroke-width="1" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <h3 class="service-title">Tailored to You</h3>
-      <p class="service-desc">A personalized full-body session that adapts to what your body needs. Intentional touch focused on tension relief, circulation, and balance.</p>
-      <a href="#pricing" class="service-link">View more</a>
+  <div class="about-stats">
+    <div class="about-stat-card">
+      <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+        <line x1="9" y1="9" x2="9.01" y2="9" stroke-width="2"/>
+        <line x1="15" y1="9" x2="15.01" y2="9" stroke-width="2"/>
+      </svg>
+      <span class="stat-number">500+</span>
+      <span class="stat-label">Happy Clients</span>
     </div>
-
-    <div class="service-card">
-      <div class="service-icon">
-        <svg viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M16 38V6" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round"/>
-          <path d="M16 28C16 28 6 23 4 13C10 11 16 17 16 28Z" stroke="#c9a96e" stroke-width="1.2" stroke-linejoin="round"/>
-          <path d="M16 22C16 22 26 17 28 7C22 5 16 11 16 22Z" stroke="#c9a96e" stroke-width="1.2" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <h3 class="service-title">Brazilian Lymphatic Drainage</h3>
-      <p class="service-desc">Rhythmic, intentional movements to support fluid circulation — leaving the body lighter, more defined, and refreshed.</p>
-      <a href="#pricing" class="service-link">View more</a>
+    <div class="about-stat-card">
+      <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 6v6l4 2"/>
+      </svg>
+      <span class="stat-number">5+</span>
+      <span class="stat-label">Years of Practice</span>
     </div>
-
-    <div class="service-card">
-      <div class="service-icon">
-        <svg viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="16" cy="16" r="5" stroke="#c9a96e" stroke-width="1.2"/>
-          <path d="M16 4V8" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round"/>
-          <path d="M16 24V28" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round"/>
-          <path d="M4 16H8" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round"/>
-          <path d="M24 16H28" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round"/>
-          <path d="M7.5 7.5L10.3 10.3" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round"/>
-          <path d="M21.7 21.7L24.5 24.5" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round"/>
-          <path d="M24.5 7.5L21.7 10.3" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round"/>
-          <path d="M10.3 21.7L7.5 24.5" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round"/>
-          <path d="M16 30V38" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="1 3"/>
-        </svg>
-      </div>
-      <h3 class="service-title">Post‑Procedure Recovery</h3>
-      <p class="service-desc">Specialized care after surgery or cosmetic procedures — ultra-gentle and restorative, supporting swelling reduction and healing.</p>
-      <a href="#pricing" class="service-link">View more</a>
+    <div class="about-stat-card">
+      <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+      <span class="stat-number">5.0</span>
+      <span class="stat-label">Client Rating</span>
     </div>
-
+    <div class="about-stat-card">
+      <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
+        <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+      </svg>
+      <span class="stat-number">3</span>
+      <span class="stat-label">Signature Treatments</span>
+    </div>
   </div>
+
 </section>
 
 <!-- ── FEATURE SPLIT ──────────────────────────────────────────────────── -->
-<section class="feature-split fadein">
+<section class="feature-split fadein" id="treatments">
   <div class="feature-image">
     <img src="/images/services/TBR.png" alt="Brazilian lymphatic drainage — Revive by Lize" />
   </div>
@@ -116,15 +126,12 @@
       MIND, SOUL AND <em>BODY</em>
     </h2>
     <p class="feature-desc">Each session with Lize is crafted around your body's needs — blending Brazilian technique, therapeutic touch, and humanized care to guide you back into your natural flow.</p>
-    <a href="#contact" class="feature-btn">Book a session</a>
+    <a href="/contact.html" class="feature-btn">Book a session</a>
   </div>
 </section>
 
 <!-- ── PRICING (stub) ─────────────────────────────────────────────────── -->
 <div id="pricing"></div>
-
-<!-- ── ABOUT (stub) ───────────────────────────────────────────────────── -->
-<div id="about"></div>
 
 <!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
 <footer class="site-footer">
